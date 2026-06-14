@@ -5,1626 +5,1337 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CINELINK 72 — Cine Libre Online</title>
 <meta name="description" content="Tu portal de cine gratuito. Canales de YouTube y sitios de streaming gratis, clasificados por género y país.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CINELINK 72">
+<meta name="theme-color" content="#E8472A">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Share+Tech+Mono&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
 <style>
+/* ══════════════════════════════════════════
+   CINELINK 72 — NOUVELLE VAGUE / SPY FILM
+   Mid-Century Modern · Teal · Orange · Cream
+   ══════════════════════════════════════════ */
 :root {
-  --bg: #080808;
-  --bg2: #0f0f0f;
-  --bg3: #141414;
-  --card: #111111;
-  --magenta: #ff2d9b;
-  --cyan: #00cfff;
-  --green: #00ff88;
-  --amber: #ffb800;
-  --red: #ff3333;
-  --purple: #c44dff;
-  --text: #e8e8e8;
-  --muted: #888;
-  --border: rgba(0,207,255,0.18);
-  --glow-m: 0 0 8px #ff2d9b88, 0 0 24px #ff2d9b44;
-  --glow-c: 0 0 8px #00cfff88, 0 0 24px #00cfff44;
-  --glow-g: 0 0 8px #00ff8888, 0 0 24px #00ff8844;
-  --glow-a: 0 0 8px #ffb80088, 0 0 24px #ffb80044;
+  --cream:   #F2EDDE;
+  --black:   #141414;
+  --orange:  #E8472A;
+  --teal:    #1A8C8C;
+  --gold:    #C9922A;
+  --red:     #C0392B;
+  --white:   #FAFAF5;
+  --ink:     #1C1C1C;
+  --teal-lt: #2AABAB;
+  --orange-d:#C03820;
+  --cream-d: #DDD8C8;
+  --panel:   #F7F2E2;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Share Tech Mono', monospace;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* GRAIN OVERLAY */
+/* ── HALFTONE TEXTURE ── */
 body::before {
   content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 12px 12px;
   pointer-events: none;
-  z-index: 9999;
-  opacity: 0.5;
+  z-index: 0;
 }
 
-/* VIGNETTE */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
-  pointer-events: none;
-  z-index: 9998;
-}
-
-/* SCANLINES */
-.scanlines {
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.08) 2px,
-    rgba(0,0,0,0.08) 4px
-  );
-  pointer-events: none;
-  z-index: 9997;
-}
-
-/* HEADER */
+/* ── HEADER ── */
 header {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem 2rem 2rem;
-  border-bottom: 1px solid var(--border);
+  background: var(--orange);
+  border-bottom: 6px solid var(--black);
   overflow: hidden;
+  z-index: 10;
 }
 
-header::before {
-  content: '';
-  position: absolute;
-  top: -80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 300px;
-  background: radial-gradient(ellipse, rgba(255,45,155,0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.logo-wrap {
-  display: flex;
-  flex-direction: column;
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 1rem;
-  animation: fadeInDown 1s ease both;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.logo-svg {
-  width: 120px;
-  height: 120px;
-  filter: drop-shadow(0 0 16px #ff2d9b99) drop-shadow(0 0 40px #ff2d9b44);
-  animation: projectorPulse 3s ease-in-out infinite;
-}
-
-@keyframes projectorPulse {
-  0%, 100% { filter: drop-shadow(0 0 16px #ff2d9b99) drop-shadow(0 0 40px #ff2d9b44); }
-  50% { filter: drop-shadow(0 0 24px #ff2d9bcc) drop-shadow(0 0 60px #ff2d9b66) drop-shadow(0 0 80px #00cfff22); }
-}
-
-.site-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 8vw, 6rem);
-  letter-spacing: 0.15em;
-  color: var(--magenta);
-  text-shadow: var(--glow-m), 0 0 60px #ff2d9b33;
-  line-height: 1;
+/* Badge 72 */
+.badge-72 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 110px;
+  background: var(--cream);
+  border-right: 4px solid var(--black);
+  flex-shrink: 0;
   position: relative;
 }
+.badge-72 svg { width: 90px; height: 90px; }
 
-.site-title::after {
-  content: 'CINELINK 72';
-  position: absolute;
-  inset: 0;
-  color: var(--cyan);
-  opacity: 0.18;
-  transform: translate(2px, 2px);
-  z-index: -1;
-}
-
-.site-tagline {
-  font-family: 'Special Elite', cursive;
-  font-size: 0.95rem;
-  color: var(--amber);
-  letter-spacing: 0.3em;
-  text-shadow: var(--glow-a);
-  text-align: center;
-}
-
-/* LANGUAGE SELECTOR */
-.lang-bar {
+/* Title block */
+.header-title {
+  padding: 1.5rem 2rem;
   display: flex;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  animation: fadeInDown 1s 0.3s ease both;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.site-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.9;
+  color: var(--black);
+  letter-spacing: 0.02em;
+}
+.site-name span { color: var(--cream); }
+.site-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: var(--black);
+  text-transform: uppercase;
+  opacity: 0.7;
 }
 
+/* Header right: lang + gun barrel */
+.header-right {
+  display: flex;
+  align-items: stretch;
+  height: 110px;
+  border-left: 4px solid var(--black);
+}
+.gun-barrel {
+  width: 120px;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.gun-barrel svg { width: 100%; height: 100%; }
+
+/* LANG */
+.lang-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1rem;
+  border-right: 3px solid var(--black);
+  background: var(--cream);
+}
+.lang-row { display: flex; gap: 0.3rem; }
 .lang-btn {
   background: transparent;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  padding: 0.3rem 0.8rem;
+  border: 1.5px solid var(--black);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.5rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
+  color: var(--ink);
   text-transform: uppercase;
 }
-.lang-btn:hover, .lang-btn.active {
-  border-color: var(--cyan);
-  color: var(--cyan);
-  text-shadow: var(--glow-c);
-  box-shadow: inset 0 0 12px rgba(0,207,255,0.08), var(--glow-c);
+.lang-btn.active, .lang-btn:hover {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--white);
 }
 
-/* TICKER */
+/* ── TICKER ── */
 .ticker-wrap {
-  width: 100%;
-  overflow: hidden;
-  background: rgba(255,45,155,0.06);
-  border-top: 1px solid rgba(255,45,155,0.2);
-  border-bottom: 1px solid rgba(255,45,155,0.2);
+  background: var(--black);
+  border-bottom: 3px solid var(--orange);
   padding: 0.5rem 0;
-  margin-top: 2rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 9;
 }
 .ticker-inner {
   display: flex;
-  gap: 0;
   width: max-content;
-  animation: ticker 35s linear infinite;
+  animation: tickerMove 40s linear infinite;
 }
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
+@keyframes tickerMove { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 .ticker-item {
   white-space: nowrap;
-  font-size: 0.75rem;
-  color: var(--magenta);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--orange);
   padding: 0 3rem;
-  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-.ticker-dot {
-  color: var(--cyan);
-}
+.ticker-sep { color: var(--teal); }
 
-/* MAIN NAV */
-nav.main-nav {
+/* ── STATUS BAR ── */
+.status-bar {
+  background: var(--teal);
+  border-bottom: 4px solid var(--black);
   display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 1.5rem 1rem;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255,45,155,0.04) 0%, transparent 100%);
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 9;
+  overflow: hidden;
 }
+.stat-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 2rem;
+  border-right: 2px solid rgba(0,0,0,0.2);
+}
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--orange);
+  -webkit-text-stroke: 1px var(--black);
+}
+.stat-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.stat-icon { flex-shrink: 0; }
+
+/* ── MAIN NAV ── */
+nav.main-nav {
+  background: var(--black);
+  border-bottom: 3px solid var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav.main-nav::-webkit-scrollbar { display: none; }
 
 .nav-btn {
   background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  padding: 0.5rem 1.2rem;
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  color: var(--cream-d);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 0.9rem 1.8rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
   text-transform: uppercase;
+  white-space: nowrap;
   position: relative;
-  overflow: hidden;
 }
-.nav-btn::before {
+.nav-btn::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: var(--cyan);
-  opacity: 0;
-  transition: opacity 0.2s;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transition: transform 0.2s;
 }
-.nav-btn:hover::before, .nav-btn.active::before { opacity: 0.08; }
-.nav-btn:hover, .nav-btn.active {
-  border-color: var(--cyan);
-  color: var(--cyan);
-  text-shadow: var(--glow-c);
-}
+.nav-btn:hover::after, .nav-btn.active::after { transform: scaleX(1); }
+.nav-btn:hover, .nav-btn.active { color: var(--orange); }
 
-/* MAIN */
+/* ── MAIN ── */
 main {
+  position: relative;
+  z-index: 1;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  padding: 2.5rem 1.5rem 5rem;
 }
 
-/* SECTION */
-.section {
-  display: none;
-  animation: fadeIn 0.4s ease;
-}
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeUp 0.35s ease both; }
 .section.active { display: block; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
-/* SECTION HEADER */
+/* ── SECTION HEADER ── */
 .section-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--black);
   flex-wrap: wrap;
   gap: 1rem;
 }
-.section-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  letter-spacing: 0.15em;
-  color: var(--cyan);
-  text-shadow: var(--glow-c);
-}
-.section-title span {
-  color: var(--magenta);
-  text-shadow: var(--glow-m);
-}
-
-/* TOGGLE VIEW */
-.view-toggle {
+.section-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
-.toggle-btn {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  padding: 0.4rem 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.1em;
+.section-eyebrow::before {
+  content: '✦';
+  color: var(--orange);
 }
-.toggle-btn.active {
-  border-color: var(--green);
-  color: var(--green);
-  text-shadow: var(--glow-g);
-  background: rgba(0,255,136,0.05);
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.05em;
+  color: var(--black);
+  line-height: 1;
 }
 
-/* CATEGORIES GRID (CARDS VIEW) */
+/* ── VIEW TOGGLE ── */
+.view-toggle { display: flex; gap: 0; border: 2px solid var(--black); }
+.toggle-btn {
+  background: var(--cream);
+  border: none;
+  border-right: 2px solid var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+.toggle-btn:last-child { border-right: none; }
+.toggle-btn.active {
+  background: var(--teal);
+  color: var(--white);
+}
+.toggle-btn:hover:not(.active) { background: var(--cream-d); }
+
+/* ── CATEGORIES GRID ── */
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0;
+  border: 2px solid var(--black);
 }
 
-/* CATEGORY CARD */
+/* ── CATEGORY CARD ── */
 .cat-card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: var(--panel);
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
   position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: background 0.2s;
 }
-.cat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cat-color, var(--cyan)), transparent);
-}
-.cat-card:hover {
-  border-color: var(--cat-color, var(--cyan));
-  box-shadow: 0 0 20px rgba(0,207,255,0.1), inset 0 0 30px rgba(0,207,255,0.03);
-}
+.cat-card:hover { background: var(--white); }
 
 .cat-header {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  padding: 1rem 1.2rem;
-  border-bottom: 1px solid var(--border);
-  cursor: default;
+  padding: 0.9rem 1.2rem;
+  background: var(--cat-bg, var(--teal));
+  border-bottom: 2px solid var(--black);
 }
-.cat-icon {
-  font-size: 1.4rem;
-  line-height: 1;
-}
+.cat-icon { font-size: 1.2rem; line-height: 1; }
 .cat-name {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  color: var(--cat-color, var(--cyan));
-  text-shadow: 0 0 8px var(--cat-color, var(--cyan));
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--white);
   flex: 1;
+  -webkit-text-stroke: 0.3px var(--black);
 }
 .cat-count {
-  font-size: 0.65rem;
-  color: var(--muted);
-  background: rgba(255,255,255,0.04);
-  padding: 0.2rem 0.5rem;
-  border: 1px solid rgba(255,255,255,0.06);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.2);
+  padding: 0.15rem 0.45rem;
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
-.channel-list {
-  list-style: none;
-  padding: 0.5rem 0;
-  max-height: 280px;
-  overflow-y: auto;
-}
+.channel-list { list-style: none; padding: 0.4rem 0; max-height: 260px; overflow-y: auto; }
 .channel-list::-webkit-scrollbar { width: 3px; }
-.channel-list::-webkit-scrollbar-track { background: transparent; }
-.channel-list::-webkit-scrollbar-thumb { background: var(--border); }
+.channel-list::-webkit-scrollbar-thumb { background: var(--cream-d); }
 
 .channel-item a {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  padding: 0.55rem 1.2rem;
+  padding: 0.5rem 1.2rem;
   text-decoration: none;
-  color: var(--text);
-  font-size: 0.78rem;
-  letter-spacing: 0.05em;
-  transition: all 0.15s;
-  border-left: 2px solid transparent;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: all 0.12s;
+  border-left: 3px solid transparent;
 }
 .channel-item a:hover {
-  color: var(--cat-color, var(--cyan));
-  background: rgba(0,207,255,0.04);
-  border-left-color: var(--cat-color, var(--cyan));
+  background: var(--cream-d);
+  border-left-color: var(--cat-accent, var(--teal));
+  color: var(--cat-accent, var(--teal));
   padding-left: 1.5rem;
 }
 .ch-bullet {
-  width: 5px; height: 5px;
+  width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--cat-color, var(--cyan));
+  background: var(--cat-accent, var(--teal));
   flex-shrink: 0;
-  box-shadow: 0 0 4px var(--cat-color, var(--cyan));
 }
 .ch-cast {
   margin-left: auto;
-  font-size: 0.6rem;
-  color: var(--muted);
+  font-size: 0.55rem;
+  font-family: 'DM Mono', monospace;
+  color: var(--cream-d);
   opacity: 0;
-  transition: opacity 0.2s;
-  white-space: nowrap;
+  transition: opacity 0.15s;
+  letter-spacing: 0.05em;
+  background: var(--cat-accent, var(--teal));
+  padding: 0.1rem 0.4rem;
 }
 .channel-item a:hover .ch-cast { opacity: 1; }
 
-/* ACCORDION VIEW */
-.accordion-view { display: flex; flex-direction: column; gap: 0.5rem; }
+/* ── ACCORDION ── */
+.accordion-view { display: flex; flex-direction: column; border: 2px solid var(--black); }
+
 .accordion-item {
-  background: var(--card);
-  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--black);
   overflow: hidden;
-  transition: border-color 0.3s;
 }
-.accordion-item.open { border-color: var(--cat-color, var(--cyan)); }
+.accordion-item:last-child { border-bottom: none; }
 
 .accordion-trigger {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.2rem;
-  background: transparent;
+  padding: 1rem 1.4rem;
+  background: var(--panel);
   border: none;
   cursor: pointer;
-  color: var(--text);
-  font-family: 'Share Tech Mono', monospace;
-  transition: background 0.2s;
-}
-.accordion-trigger:hover { background: rgba(255,255,255,0.02); }
-.accordion-icon { font-size: 1.2rem; }
-.accordion-label {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  color: var(--cat-color, var(--cyan));
-  text-shadow: 0 0 8px var(--cat-color, var(--cyan));
-  flex: 1;
+  transition: background 0.15s;
   text-align: left;
 }
+.accordion-trigger:hover { background: var(--cream-d); }
+.accordion-item.open > .accordion-trigger { background: var(--cat-bg, var(--teal)); }
+
+.accordion-icon { font-size: 1.1rem; }
+.accordion-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  flex: 1;
+}
+.accordion-item.open > .accordion-trigger .accordion-label { color: var(--white); }
 .accordion-meta {
-  font-size: 0.65rem;
-  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cream-d);
   margin-right: 0.5rem;
 }
+.accordion-item:not(.open) .accordion-meta { color: var(--teal); }
+
 .accordion-arrow {
-  width: 20px; height: 20px;
-  border-right: 2px solid var(--cat-color, var(--cyan));
-  border-bottom: 2px solid var(--cat-color, var(--cyan));
+  width: 10px; height: 10px;
+  border-right: 2.5px solid currentColor;
+  border-bottom: 2.5px solid currentColor;
   transform: rotate(45deg);
   transition: transform 0.3s;
   flex-shrink: 0;
-  margin-right: 4px;
+  color: var(--ink);
 }
-.accordion-item.open .accordion-arrow { transform: rotate(-135deg); }
+.accordion-item.open .accordion-arrow { transform: rotate(-135deg); color: var(--white); }
 
 .accordion-body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+  background: var(--white);
+  border-top: 0;
 }
-.accordion-item.open .accordion-body { max-height: 600px; }
+.accordion-item.open .accordion-body { max-height: 600px; border-top: 2px solid var(--black); }
 
-/* LINKS SECTION */
+/* ── LINKS SECTION ── */
+.links-group-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  background: var(--black);
+  padding: 0.6rem 1.2rem;
+  margin: 2rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-left: 6px solid var(--orange);
+}
+.links-group-title::before { content: '◆'; color: var(--orange); font-size: 0.8rem; }
+
 .links-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.2rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0;
+  border: 2px solid var(--black);
+  border-top: none;
+  margin-bottom: 1rem;
 }
+
 .link-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 1.2rem;
+  background: var(--panel);
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  padding: 1.2rem 1.4rem;
   text-decoration: none;
-  color: var(--text);
+  color: var(--ink);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  transition: all 0.25s;
+  gap: 0.5rem;
+  transition: background 0.15s;
   position: relative;
-  overflow: hidden;
 }
-.link-card::after {
-  content: '▶';
+.link-card:hover { background: var(--white); }
+.link-card::before {
+  content: '';
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  font-size: 0.7rem;
-  color: var(--muted);
-  opacity: 0;
-  transition: opacity 0.2s;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--teal);
+  transition: background 0.15s;
 }
-.link-card:hover::after { opacity: 1; }
-.link-card:hover {
-  border-color: var(--amber);
-  box-shadow: 0 0 20px rgba(255,184,0,0.1);
-  transform: translateY(-2px);
-}
+.link-card:hover::before { background: var(--orange); }
+
 .link-name {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.1em;
-  color: var(--amber);
-  text-shadow: var(--glow-a);
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  color: var(--black);
 }
 .link-desc {
-  font-size: 0.75rem;
-  color: var(--muted);
+  font-size: 0.78rem;
+  color: #555;
   line-height: 1.6;
+  font-weight: 400;
 }
 .link-tag {
-  font-size: 0.6rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
   letter-spacing: 0.1em;
-  color: var(--green);
-  border: 1px solid rgba(0,255,136,0.3);
+  color: var(--white);
+  background: var(--teal);
   padding: 0.15rem 0.5rem;
   align-self: flex-start;
   text-transform: uppercase;
 }
 
-/* CAST INFO BOX */
-.cast-info {
-  background: rgba(0,207,255,0.04);
-  border: 1px solid rgba(0,207,255,0.2);
+/* ── INFO BOX ── */
+.info-box {
+  background: var(--teal);
+  border: 2px solid var(--black);
   padding: 1.2rem 1.5rem;
   margin-bottom: 2rem;
   display: flex;
   gap: 1rem;
   align-items: flex-start;
 }
-.cast-icon {
-  font-size: 1.8rem;
-  flex-shrink: 0;
-  line-height: 1;
+.info-box-icon { font-size: 1.5rem; flex-shrink: 0; }
+.info-box-text {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--cream);
+  font-weight: 500;
 }
-.cast-text { font-size: 0.78rem; line-height: 1.8; color: var(--muted); }
-.cast-text strong { color: var(--cyan); }
+.info-box-text strong { color: var(--white); }
 
-/* ABOUT */
-.about-wrap {
-  max-width: 680px;
-  margin: 0 auto;
+/* ── CAST CARDS ── */
+.cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 0; border: 2px solid var(--black); max-width: 860px; }
+.cast-card {
+  padding: 1.5rem;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  background: var(--panel);
 }
-.about-block {
-  border-left: 2px solid var(--magenta);
-  padding: 1.2rem 1.5rem;
-  margin-bottom: 2rem;
-  background: rgba(255,45,155,0.03);
-}
-.about-block p { font-size: 0.82rem; line-height: 1.9; color: var(--muted); }
-.about-block p + p { margin-top: 0.8rem; }
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 2rem 1rem;
-  border-top: 1px solid var(--border);
-  font-size: 0.65rem;
-  color: var(--muted);
+.cast-card:last-child { border-bottom: none; }
+.cast-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
   letter-spacing: 0.1em;
+  color: var(--white);
+  background: var(--cat-bg, var(--teal));
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--black);
 }
-footer span { color: var(--magenta); text-shadow: var(--glow-m); }
+.cast-step {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: #444;
+}
+.cast-step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--orange);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 24px;
+}
+.cast-step strong { color: var(--teal); }
 
-/* MOBILE */
-@media (max-width: 600px) {
+/* ── ABOUT ── */
+.about-layout { display: grid; grid-template-columns: 1fr 280px; gap: 0; border: 2px solid var(--black); max-width: 860px; }
+.about-main { padding: 2rem; border-right: 2px solid var(--black); }
+.about-sidebar { padding: 1.5rem; background: var(--black); }
+
+.about-pull {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--black);
+}
+.about-p {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: #444;
+  margin-bottom: 1rem;
+}
+.sidebar-stat {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-stat:last-child { border-bottom: none; margin-bottom: 0; }
+.sidebar-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--orange);
+  line-height: 1;
+  -webkit-text-stroke: 1px var(--cream);
+}
+.sidebar-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--cream-d);
+  text-transform: uppercase;
+}
+
+/* ── DECORATIVE ELEMENTS ── */
+.deco-starburst {
+  display: inline-block;
+  width: 40px; height: 40px;
+  position: relative;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  border-top: 4px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+.footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+}
+.footer-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: #666;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+  .header-inner { grid-template-columns: auto 1fr; }
+  .gun-barrel { display: none; }
+  .header-right { border-left: none; }
+  .stat-block { padding: 0.6rem 1rem; }
+  .stat-num { font-size: 2rem; }
   .categories-grid { grid-template-columns: 1fr; }
   .links-grid { grid-template-columns: 1fr; }
+  .about-layout { grid-template-columns: 1fr; }
+  .cast-grid { grid-template-columns: 1fr; }
   .section-header { flex-direction: column; align-items: flex-start; }
-  header { padding: 2rem 1rem 1.5rem; }
-  .logo-svg { width: 80px; height: 80px; }
-}
-
-/* FLICKER ANIMATION FOR TITLE */
-.site-title {
-  animation: flicker 8s ease-in-out infinite;
-}
-@keyframes flicker {
-  0%, 95%, 100% { opacity: 1; }
-  96% { opacity: 0.85; }
-  97% { opacity: 1; }
-  98% { opacity: 0.7; }
-  99% { opacity: 1; }
-}
-
-/* PROJECTION BEAM */
-.beam {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 60px;
-  background: linear-gradient(180deg, rgba(255,184,0,0.6), transparent);
-  animation: beamPulse 2.5s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes beamPulse {
-  0%, 100% { opacity: 0.4; height: 60px; }
-  50% { opacity: 0.9; height: 80px; }
-}
-
-/* CURTAINS DECORATION */
-.curtain-left, .curtain-right {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  z-index: 10;
-  pointer-events: none;
-}
-.curtain-left {
-  left: 0;
-  background: linear-gradient(90deg, rgba(40,0,0,0.7) 0%, transparent 100%);
-}
-.curtain-right {
-  right: 0;
-  background: linear-gradient(270deg, rgba(40,0,0,0.7) 0%, transparent 100%);
-}
-
-/* FLOOR LIGHT */
-.floor-light {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--amber), transparent);
-  box-shadow: 0 0 20px var(--amber), 0 -10px 40px rgba(255,184,0,0.08);
-  z-index: 10;
-  pointer-events: none;
-  animation: floorGlow 4s ease-in-out infinite;
-}
-@keyframes floorGlow {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-/* STATUS BAR */
-.status-bar {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 0.6rem 1rem;
-  background: rgba(0,0,0,0.4);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  font-size: 0.6rem;
-  color: var(--muted);
-  flex-wrap: wrap;
-}
-.status-item { display: flex; align-items: center; gap: 0.4rem; }
-.status-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  animation: blink 2s ease-in-out infinite;
-}
-.s-green { background: var(--green); box-shadow: 0 0 4px var(--green); }
-.s-amber { background: var(--amber); box-shadow: 0 0 4px var(--amber); animation-delay: 0.7s; }
-.s-magenta { background: var(--magenta); box-shadow: 0 0 4px var(--magenta); animation-delay: 1.4s; }
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-/* LINKS SECTION GROUPS */
-.links-group-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem;
-  letter-spacing: 0.2em;
-  color: var(--purple);
-  text-shadow: 0 0 10px var(--purple);
-  margin: 2rem 0 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(196,77,255,0.2);
+  .badge-72 { width: 80px; height: 80px; }
+  .badge-72 svg { width: 64px; height: 64px; }
+  .site-name { font-size: 2.5rem; }
+  .gun-barrel, .lang-panel { display: none; }
 }
 </style>
 </head>
 <body>
 
-<div class="scanlines"></div>
-<div class="curtain-left"></div>
-<div class="curtain-right"></div>
-<div class="floor-light"></div>
-
-<div class="status-bar">
-  <div class="status-item"><div class="status-dot s-green"></div><span data-i18n="status_online">EN LÍNEA</span></div>
-  <div class="status-item"><div class="status-dot s-amber"></div><span data-i18n="status_channels">50 CANALES YOUTUBE</span></div>
-  <div class="status-item"><div class="status-dot s-magenta"></div><span data-i18n="status_free">100% GRATUITO</span></div>
-</div>
-
+<!-- ═══════════════════ HEADER ═══════════════════ -->
 <header>
-  <div class="beam"></div>
-  <div class="logo-wrap">
-    <!-- SVG LOGO FELLINESCO - CÁMARA DE CINE PROYECTANDO -->
-    <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="beamGrad" cx="50%" cy="0%" r="100%">
-          <stop offset="0%" stop-color="#ffb800" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#ffb800" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="lensGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-          <stop offset="40%" stop-color="#00cfff" stop-opacity="0.7"/>
-          <stop offset="100%" stop-color="#00cfff" stop-opacity="0"/>
-        </radialGradient>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="glow2">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
+  <div class="header-inner">
 
-      <!-- PROJECTION BEAM (going left) -->
-      <polygon points="28,47 0,20 0,74" fill="url(#beamGrad)" opacity="0.5">
-        <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.5s" repeatCount="indefinite"/>
-      </polygon>
-
-      <!-- FILM REEL TOP -->
-      <circle cx="50" cy="22" r="14" fill="none" stroke="#ff2d9b" stroke-width="2"/>
-      <circle cx="50" cy="22" r="9" fill="#1a0010" stroke="#ff2d9b" stroke-width="1"/>
-      <circle cx="50" cy="22" r="3" fill="#ff2d9b"/>
-      <!-- spokes -->
-      <line x1="50" y1="13" x2="50" y2="9" stroke="#ff2d9b" stroke-width="1.5"/>
-      <line x1="59" y1="17" x2="62" y2="14" stroke="#ff2d9b" stroke-width="1.5"/>
-      <line x1="59" y1="27" x2="62" y2="30" stroke="#ff2d9b" stroke-width="1.5"/>
-      <line x1="50" y1="31" x2="50" y2="35" stroke="#ff2d9b" stroke-width="1.5"/>
-      <line x1="41" y1="27" x2="38" y2="30" stroke="#ff2d9b" stroke-width="1.5"/>
-      <line x1="41" y1="17" x2="38" y2="14" stroke="#ff2d9b" stroke-width="1.5"/>
-      <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 22" to="360 50 22" dur="4s" repeatCount="indefinite" additive="sum"/>
-
-      <!-- FILM REEL BOTTOM -->
-      <g>
-        <circle cx="50" cy="98" r="14" fill="none" stroke="#c44dff" stroke-width="2"/>
-        <circle cx="50" cy="98" r="9" fill="#100016" stroke="#c44dff" stroke-width="1"/>
-        <circle cx="50" cy="98" r="3" fill="#c44dff"/>
-        <line x1="50" y1="84" x2="50" y2="89" stroke="#c44dff" stroke-width="1.5"/>
-        <line x1="59" y1="93" x2="63" y2="90" stroke="#c44dff" stroke-width="1.5"/>
-        <line x1="59" y1="103" x2="63" y2="106" stroke="#c44dff" stroke-width="1.5"/>
-        <line x1="50" y1="107" x2="50" y2="112" stroke="#c44dff" stroke-width="1.5"/>
-        <line x1="41" y1="103" x2="37" y2="106" stroke="#c44dff" stroke-width="1.5"/>
-        <line x1="41" y1="93" x2="37" y2="90" stroke="#c44dff" stroke-width="1.5"/>
-        <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 98" to="-360 50 98" dur="4s" repeatCount="indefinite" additive="sum"/>
-      </g>
-
-      <!-- FILM STRIP (vertical) -->
-      <rect x="44" y="36" width="12" height="48" fill="#1c1c1c" stroke="#444" stroke-width="0.5"/>
-      <!-- perforations -->
-      <rect x="44" y="38" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="57" y="38" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="44" y="46" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="57" y="46" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="44" y="54" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="57" y="54" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="44" y="62" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="57" y="62" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="44" y="70" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <rect x="57" y="70" width="3" height="4" rx="0.5" fill="#000" stroke="#555" stroke-width="0.3"/>
-      <!-- frame images (cinematic frames in strip) -->
-      <rect x="47" y="42" width="6" height="4" fill="#ff2d9b" opacity="0.3"/>
-      <rect x="47" y="50" width="6" height="4" fill="#00cfff" opacity="0.3"/>
-      <rect x="47" y="58" width="6" height="4" fill="#ffb800" opacity="0.3"/>
-      <rect x="47" y="66" width="6" height="4" fill="#c44dff" opacity="0.3"/>
-
-      <!-- PROJECTOR BODY -->
-      <rect x="58" y="40" width="42" height="40" rx="4" fill="#1a1a1a" stroke="#00cfff" stroke-width="1.5" filter="url(#glow)"/>
-      <!-- body details -->
-      <rect x="62" y="44" width="14" height="10" rx="1" fill="#0a0a0a" stroke="#333" stroke-width="0.5"/>
-      <rect x="62" y="58" width="14" height="10" rx="1" fill="#0a0a0a" stroke="#333" stroke-width="0.5"/>
-      <rect x="62" y="72" width="14" height="5" rx="1" fill="#111" stroke="#222" stroke-width="0.5"/>
-      <!-- ventilation slots -->
-      <line x1="80" y1="46" x2="95" y2="46" stroke="#333" stroke-width="1"/>
-      <line x1="80" y1="50" x2="95" y2="50" stroke="#333" stroke-width="1"/>
-      <line x1="80" y1="54" x2="95" y2="54" stroke="#333" stroke-width="1"/>
-      <line x1="80" y1="58" x2="95" y2="58" stroke="#333" stroke-width="1"/>
-      <!-- lens assembly -->
-      <circle cx="62" cy="60" r="12" fill="#0d0d1f" stroke="#00cfff" stroke-width="2" filter="url(#glow)"/>
-      <circle cx="62" cy="60" r="9" fill="#060612" stroke="#0066aa" stroke-width="1"/>
-      <circle cx="62" cy="60" r="6" fill="#030308" stroke="#004488" stroke-width="0.5"/>
-      <!-- lens glow / light -->
-      <circle cx="62" cy="60" r="5" fill="url(#lensGlow)">
-        <animate attributeName="r" values="4;6;4" dur="2.5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.7;1;0.7" dur="2.5s" repeatCount="indefinite"/>
-      </circle>
-      <!-- lens reflection -->
-      <ellipse cx="59" cy="57" rx="1.5" ry="1" fill="white" opacity="0.6"/>
-      <!-- on/off light on top -->
-      <circle cx="90" cy="42" r="3" fill="#00ff88" filter="url(#glow2)">
-        <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
-      <!-- lens hood -->
-      <rect x="34" y="54" width="28" height="12" rx="2" fill="#222" stroke="#00cfff" stroke-width="1"/>
-      <!-- projector base -->
-      <rect x="68" y="80" width="22" height="6" rx="2" fill="#111" stroke="#333" stroke-width="1"/>
-      <rect x="74" y="86" width="10" height="8" rx="1" fill="#0a0a0a" stroke="#222" stroke-width="1"/>
-    </svg>
-
-    <div class="site-title" data-i18n="site_title">CINELINK 72</div>
-    <div class="site-tagline" data-i18n="tagline">— TU SALA DE CINE ONLINE GRATUITA —</div>
-  </div>
-
-  <div class="lang-bar">
-    <button class="lang-btn active" onclick="setLang('es')">🇦🇷 ES</button>
-    <button class="lang-btn" onclick="setLang('it')">🇮🇹 IT</button>
-    <button class="lang-btn" onclick="setLang('fr')">🇫🇷 FR</button>
-    <button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
-  </div>
-
-  <div class="ticker-wrap">
-    <div class="ticker-inner" id="ticker">
-      <span class="ticker-item">🎬 CINELINK 72 <span class="ticker-dot">◆</span> CINE GRATIS EN YOUTUBE <span class="ticker-dot">◆</span> CLÁSICOS <span class="ticker-dot">◆</span> CINE ITALIANO <span class="ticker-dot">◆</span> CINE FRANCÉS <span class="ticker-dot">◆</span> TERROR <span class="ticker-dot">◆</span> WESTERN <span class="ticker-dot">◆</span> LATIN CINEMA <span class="ticker-dot">◆</span> PLUTO TV <span class="ticker-dot">◆</span> TUBI <span class="ticker-dot">◆</span> CHROMECAST READY <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">🎬 CINELINK 72 <span class="ticker-dot">◆</span> CINE GRATIS EN YOUTUBE <span class="ticker-dot">◆</span> CLÁSICOS <span class="ticker-dot">◆</span> CINE ITALIANO <span class="ticker-dot">◆</span> CINE FRANCÉS <span class="ticker-dot">◆</span> TERROR <span class="ticker-dot">◆</span> WESTERN <span class="ticker-dot">◆</span> LATIN CINEMA <span class="ticker-dot">◆</span> PLUTO TV <span class="ticker-dot">◆</span> TUBI <span class="ticker-dot">◆</span> CHROMECAST READY <span class="ticker-dot">◆</span></span>
+    <!-- Badge 72 -->
+    <div class="badge-72">
+      <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+        <!-- outer rings -->
+        <circle cx="45" cy="45" r="42" fill="none" stroke="#141414" stroke-width="2"/>
+        <circle cx="45" cy="45" r="36" fill="none" stroke="#141414" stroke-width="1"/>
+        <circle cx="45" cy="45" r="30" fill="none" stroke="#141414" stroke-width="0.5"/>
+        <!-- horizontal bar -->
+        <line x1="3" y1="45" x2="87" y2="45" stroke="#141414" stroke-width="1.5"/>
+        <!-- dot -->
+        <circle cx="72" cy="45" r="4" fill="#E8472A"/>
+        <!-- 72 text -->
+        <text x="45" y="52" font-family="Bebas Neue, sans-serif" font-size="28" fill="#141414" text-anchor="middle" letter-spacing="1">72</text>
+      </svg>
     </div>
+
+    <!-- Title -->
+    <div class="header-title">
+      <div class="site-sub" data-i18n="site_sub">PERSONAL CINEMA NETWORK · EST. 2026</div>
+      <div class="site-name">CINE<span>LINK</span> 72</div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="header-right">
+      <div class="lang-panel">
+        <div class="lang-row">
+          <button class="lang-btn active" onclick="setLang('es')">🇦🇷 ES</button>
+          <button class="lang-btn" onclick="setLang('it')">🇮🇹 IT</button>
+        </div>
+        <div class="lang-row">
+          <button class="lang-btn" onclick="setLang('fr')">🇫🇷 FR</button>
+          <button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+        </div>
+      </div>
+      <!-- Gun barrel SVG — Bond style spiral -->
+      <div class="gun-barrel">
+        <svg viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="barrel" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#444"/>
+              <stop offset="100%" stop-color="#000"/>
+            </radialGradient>
+          </defs>
+          <rect width="120" height="110" fill="#000"/>
+          <!-- spiral rings -->
+          <circle cx="60" cy="55" r="48" fill="none" stroke="#222" stroke-width="3"/>
+          <circle cx="60" cy="55" r="40" fill="none" stroke="#2a2a2a" stroke-width="3"/>
+          <circle cx="60" cy="55" r="32" fill="none" stroke="#333" stroke-width="3"/>
+          <circle cx="60" cy="55" r="24" fill="none" stroke="#3a3a3a" stroke-width="3"/>
+          <circle cx="60" cy="55" r="16" fill="none" stroke="#444" stroke-width="3"/>
+          <circle cx="60" cy="55" r="8" fill="none" stroke="#555" stroke-width="3"/>
+          <!-- center hole -->
+          <circle cx="60" cy="55" r="5" fill="#0a0a0a" stroke="#666" stroke-width="1"/>
+          <!-- spiral lines from center to edge -->
+          <line x1="60" y1="55" x2="108" y2="55" stroke="#1a1a1a" stroke-width="1"/>
+          <line x1="60" y1="55" x2="91" y2="21" stroke="#1a1a1a" stroke-width="1"/>
+          <line x1="60" y1="55" x2="60" y2="7" stroke="#1a1a1a" stroke-width="1"/>
+          <line x1="60" y1="55" x2="29" y2="21" stroke="#1a1a1a" stroke-width="1"/>
+          <line x1="60" y1="55" x2="12" y2="55" stroke="#1a1a1a" stroke-width="1"/>
+          <line x1="60" y1="55" x2="29" y2="89" stroke="#1a1a1a" stroke-width="1"/>
+          <line x1="60" y1="55" x2="60" y2="103" stroke="#1a1a1a" stroke-width="1"/>
+          <line x1="60" y1="55" x2="91" y2="89" stroke="#1a1a1a" stroke-width="1"/>
+          <!-- silhouette figure (Bond) -->
+          <circle cx="60" cy="25" r="5" fill="#141414"/>
+          <line x1="60" y1="30" x2="60" y2="48" stroke="#141414" stroke-width="4"/>
+          <line x1="52" y1="36" x2="68" y2="36" stroke="#141414" stroke-width="3"/>
+          <line x1="60" y1="48" x2="54" y2="60" stroke="#141414" stroke-width="3"/>
+          <line x1="60" y1="48" x2="66" y2="60" stroke="#141414" stroke-width="3"/>
+          <!-- gun arm -->
+          <line x1="68" y1="36" x2="78" y2="32" stroke="#141414" stroke-width="2.5"/>
+          <circle cx="80" cy="31" r="2" fill="#141414"/>
+          <!-- orange dot flash -->
+          <circle cx="80" cy="31" r="4" fill="#E8472A" opacity="0.8"/>
+        </svg>
+      </div>
+    </div>
+
   </div>
 </header>
 
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">✦ CINELINK 72 <span class="ticker-sep">|</span> CINE GRATIS EN YOUTUBE <span class="ticker-sep">|</span> NOUVELLE VAGUE <span class="ticker-sep">|</span> CINEMA ITALIANO <span class="ticker-sep">|</span> WESTERN <span class="ticker-sep">|</span> TERROR <span class="ticker-sep">|</span> PLUTO TV <span class="ticker-sep">|</span> CHROMECAST READY <span class="ticker-sep">|</span> FELLINI · TRUFFAUT · DELON · BOND <span class="ticker-sep">|</span> 50 CANALES <span class="ticker-sep">|</span> 100% GRATUITO <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">✦ CINELINK 72 <span class="ticker-sep">|</span> CINE GRATIS EN YOUTUBE <span class="ticker-sep">|</span> NOUVELLE VAGUE <span class="ticker-sep">|</span> CINEMA ITALIANO <span class="ticker-sep">|</span> WESTERN <span class="ticker-sep">|</span> TERROR <span class="ticker-sep">|</span> PLUTO TV <span class="ticker-sep">|</span> CHROMECAST READY <span class="ticker-sep">|</span> FELLINI · TRUFFAUT · DELON · BOND <span class="ticker-sep">|</span> 50 CANALES <span class="ticker-sep">|</span> 100% GRATUITO <span class="ticker-sep">|</span></span>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="stat-block">
+    <div>
+      <div class="stat-num">50</div>
+      <div class="stat-label" data-i18n="stat_channels">CANALES<br>YOUTUBE</div>
+    </div>
+    <div class="stat-icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="3" fill="#F2EDDE"/>
+        <circle cx="20" cy="8" r="2" fill="#F2EDDE"/>
+        <circle cx="20" cy="32" r="2" fill="#F2EDDE"/>
+        <circle cx="8" cy="20" r="2" fill="#F2EDDE"/>
+        <circle cx="32" cy="20" r="2" fill="#F2EDDE"/>
+        <circle cx="11" cy="11" r="2" fill="#F2EDDE"/>
+        <circle cx="29" cy="29" r="2" fill="#F2EDDE"/>
+        <circle cx="29" cy="11" r="2" fill="#F2EDDE"/>
+        <circle cx="11" cy="29" r="2" fill="#F2EDDE"/>
+        <line x1="20" y1="20" x2="20" y2="8" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="20" y2="32" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="8" y2="20" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="32" y2="20" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="11" y2="11" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="29" y2="29" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="29" y2="11" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="11" y2="29" stroke="#F2EDDE" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+  <div class="stat-block">
+    <div>
+      <div class="stat-num">9</div>
+      <div class="stat-label" data-i18n="stat_cats">GÉNEROS<br>CINE</div>
+    </div>
+    <div class="stat-icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="7" fill="#E8472A" opacity="0.9"/>
+        <circle cx="28" cy="12" r="7" fill="#C9922A" opacity="0.9"/>
+        <circle cx="12" cy="28" r="7" fill="#F2EDDE" opacity="0.9"/>
+        <circle cx="28" cy="28" r="7" fill="#E8472A" opacity="0.6"/>
+      </svg>
+    </div>
+  </div>
+  <div class="stat-block">
+    <div>
+      <div class="stat-num">16</div>
+      <div class="stat-label" data-i18n="stat_sites">SITIOS<br>EXTERNOS</div>
+    </div>
+    <div class="stat-icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="10" width="32" height="20" rx="3" fill="none" stroke="#F2EDDE" stroke-width="2"/>
+        <line x1="4" y1="16" x2="36" y2="16" stroke="#F2EDDE" stroke-width="1.5"/>
+        <circle cx="9" cy="13" r="1.5" fill="#E8472A"/>
+        <circle cx="14" cy="13" r="1.5" fill="#C9922A"/>
+        <circle cx="19" cy="13" r="1.5" fill="#1A8C8C"/>
+      </svg>
+    </div>
+  </div>
+  <div class="stat-block">
+    <div>
+      <div class="stat-num">4</div>
+      <div class="stat-label" data-i18n="stat_langs">IDIOMAS<br>UI</div>
+    </div>
+    <div class="stat-icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="15" fill="none" stroke="#F2EDDE" stroke-width="2"/>
+        <ellipse cx="20" cy="20" rx="7" ry="15" fill="none" stroke="#F2EDDE" stroke-width="1.5"/>
+        <line x1="5" y1="20" x2="35" y2="20" stroke="#F2EDDE" stroke-width="1.5"/>
+        <line x1="7" y1="13" x2="33" y2="13" stroke="#F2EDDE" stroke-width="1"/>
+        <line x1="7" y1="27" x2="33" y2="27" stroke="#F2EDDE" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN NAV -->
 <nav class="main-nav">
-  <button class="nav-btn active" onclick="showSection('youtube')" data-i18n="nav_youtube">📺 CANALES YOUTUBE</button>
-  <button class="nav-btn" onclick="showSection('links')" data-i18n="nav_links">🌐 SITIOS GRATUITOS</button>
-  <button class="nav-btn" onclick="showSection('cast')" data-i18n="nav_cast">📡 CÓMO VER EN TV</button>
-  <button class="nav-btn" onclick="showSection('about')" data-i18n="nav_about">🎞 ACERCA</button>
+  <button class="nav-btn active" onclick="showSection('youtube')" data-i18n="nav_youtube">▶ CANALES YOUTUBE</button>
+  <button class="nav-btn" onclick="showSection('links')" data-i18n="nav_links">◈ SITIOS GRATUITOS</button>
+  <button class="nav-btn" onclick="showSection('cast')" data-i18n="nav_cast">⊡ CÓMO VER EN TV</button>
+  <button class="nav-btn" onclick="showSection('about')" data-i18n="nav_about">✦ ACERCA</button>
 </nav>
 
+<!-- ═══════════════════ MAIN ═══════════════════ -->
 <main>
 
-  <!-- ============ SECCIÓN YOUTUBE ============ -->
-  <section class="section active" id="sect-youtube">
-    <div class="section-header">
-      <div class="section-title"><span>📺</span> <span data-i18n="yt_title">CANALES DE YOUTUBE</span></div>
-      <div class="view-toggle">
-        <button class="toggle-btn active" id="btn-cards" onclick="setView('cards')" data-i18n="view_cards">▦ TARJETAS</button>
-        <button class="toggle-btn" id="btn-accordion" onclick="setView('accordion')" data-i18n="view_accord">▼ ACORDEÓN</button>
-      </div>
+<!-- ════ SECCIÓN YOUTUBE ════ -->
+<section class="section active" id="sect-youtube">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow" data-i18n="yt_eyebrow">DIRECTORIO DE CANALES</div>
+      <div class="section-title" data-i18n="yt_title">CANALES DE YOUTUBE</div>
+    </div>
+    <div class="view-toggle">
+      <button class="toggle-btn active" id="btn-cards" onclick="setView('cards')" data-i18n="view_cards">▦ TARJETAS</button>
+      <button class="toggle-btn" id="btn-accordion" onclick="setView('accordion')" data-i18n="view_accord">▼ ACORDEÓN</button>
+    </div>
+  </div>
+
+  <!-- ── CARDS VIEW ── -->
+  <div id="view-cards" class="categories-grid">
+
+    <div class="cat-card" style="--cat-bg:#1A8C8C; --cat-accent:#1A8C8C;">
+      <div class="cat-header"><span class="cat-icon">🎩</span><span class="cat-name" data-i18n="cat_clasico">CINE CLÁSICO INTERNACIONAL</span><span class="cat-count">5</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@ArtflixPel%C3%ADculasCl%C3%A1sicas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Artflix Películas Clásicas<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CultCinemaClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cult Cinema Classics<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@BabelClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Classics<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Babel-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Movies<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ElArchivo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>El Archivo<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
 
-    <!-- CARDS VIEW -->
-    <div id="view-cards" class="categories-grid">
-
-      <!-- CINE CLÁSICO INTERNACIONAL -->
-      <div class="cat-card" style="--cat-color: #00cfff;">
-        <div class="cat-header">
-          <span class="cat-icon">🎩</span>
-          <span class="cat-name" data-i18n="cat_clasico">CINE CLÁSICO INTERNACIONAL</span>
-          <span class="cat-count">5</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@ArtflixPelículasClásicas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Artflix Películas Clásicas<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@CultCinemaClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cult Cinema Classics<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@BabelClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Classics<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Babel-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Movies<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@ElArchivo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>El Archivo<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- CINE ITALIANO -->
-      <div class="cat-card" style="--cat-color: #ff2d9b;">
-        <div class="cat-header">
-          <span class="cat-icon">🇮🇹</span>
-          <span class="cat-name" data-i18n="cat_italiano">CINE ITALIANO</span>
-          <span class="cat-count">4</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@Risateallitaliana-zm6cp/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Risate all'Italiana<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@cinemaitaliano-p8s/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinema Italiano<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@FilmManiaItalia/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film Mania Italia<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (IT/FR)<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- CINE FRANCÉS -->
-      <div class="cat-card" style="--cat-color: #c44dff;">
-        <div class="cat-header">
-          <span class="cat-icon">🇫🇷</span>
-          <span class="cat-name" data-i18n="cat_frances">CINE FRANCÉS</span>
-          <span class="cat-count">2</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (FR/IT)<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- CINE EN ESPAÑOL / LATINOAMERICANO -->
-      <div class="cat-card" style="--cat-color: #ffb800;">
-        <div class="cat-header">
-          <span class="cat-icon">🌎</span>
-          <span class="cat-name" data-i18n="cat_latino">CINE LATINOAMERICANO</span>
-          <span class="cat-count">12</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@LaCorrientePeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>La Corriente Películas<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@BigtimePeliculasGratis/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>BigTime Películas Gratis<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@butaca/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Butaca<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@MardeFIILMES/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Mar de Filmes<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Peliculaantigua/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Película Antigua<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@agarrenlapala2023/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Agarren la Pala<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@PelisParaTi/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis Para Ti<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@CineEmocionPeliculasCompletas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Emoción<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@CINETELMULTIMEDIA/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinetel Multimedia<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@PelículasLAT1/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Películas LAT 1<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@PelícuLATI/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>PelícuLATI<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@ChanguitaFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Changuita Films<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- CINE EN ESPAÑOL GENERAL / STREAMING -->
-      <div class="cat-card" style="--cat-color: #00ff88;">
-        <div class="cat-header">
-          <span class="cat-icon">🎬</span>
-          <span class="cat-name" data-i18n="cat_espanol">CINE EN ESPAÑOL</span>
-          <span class="cat-count">12</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@UNIQUETIME_BD/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Unique Time BD<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Cinewoodcom/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinewood<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Visión24-q3e/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Visión 24<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@PelisDeEstrella/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis de Estrella<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Isladecine-p9p/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Isla de Cine<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@YouMoviesEspañol" target="_blank" rel="noopener"><span class="ch-bullet"></span>YouMovies Español<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@CinepolisChannelLatam/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinépolis Channel Latam<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@VIAJEALMUNDODELCINE/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Viaje al Mundo del Cine<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@CIneMasPeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineMás Películas<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@CinePerfecto-i9m/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Perfecto<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@ImpulsoCinematográfico/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Impulso Cinematográfico<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@FrutaRaraTV-b9f/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fruta Rara TV<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- CINE INTERNACIONAL EN INGLÉS / STREAMING -->
-      <div class="cat-card" style="--cat-color: #00cfff;">
-        <div class="cat-header">
-          <span class="cat-icon">🌐</span>
-          <span class="cat-name" data-i18n="cat_inter">CINE INTERNACIONAL</span>
-          <span class="cat-count">9</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@FilmandClips" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film and Clips<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@StreamTVFilms" target="_blank" rel="noopener"><span class="ch-bullet"></span>Stream TV Films<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Streamhouse_Official/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Streamhouse Official<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@CineStream_OfficialChannel/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineStream Official<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Boxoffice-Full-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Full Movies<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@MovieCentral/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Movie Central<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@ICONTVFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>ICON TV Films<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@XEFIROXY/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Xefiroxy<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@FandersonUfo" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fanderson UFO (UK Sci-Fi)<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- WESTERN / ACCIÓN -->
-      <div class="cat-card" style="--cat-color: #ffb800;">
-        <div class="cat-header">
-          <span class="cat-icon">🤠</span>
-          <span class="cat-name" data-i18n="cat_western">WESTERN &amp; ACCIÓN</span>
-          <span class="cat-count">3</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@PantallaVaqueraEspañol/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pantalla Vaquera Español<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@Montanasdepelicula-wc8ez/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Montañas de Película<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@KvbyFilmleri/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Kvby Filmleri (Western TR)<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- TERROR / THRILLER -->
-      <div class="cat-card" style="--cat-color: #ff3333;">
-        <div class="cat-header">
-          <span class="cat-icon">🔪</span>
-          <span class="cat-name" data-i18n="cat_terror">TERROR &amp; THRILLER</span>
-          <span class="cat-count">2</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@thehorrormoviezone/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Horror Movie Zone<span class="ch-cast">▶ cast</span></a></li>
-          <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-      <!-- PROGRAMAS DE TV -->
-      <div class="cat-card" style="--cat-color: #c44dff;">
-        <div class="cat-header">
-          <span class="cat-icon">📺</span>
-          <span class="cat-name" data-i18n="cat_tv">PROGRAMAS DE TV</span>
-          <span class="cat-count">1</span>
-        </div>
-        <ul class="channel-list">
-          <li class="channel-item"><a href="https://www.youtube.com/@TheEdSullivanShow/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Ed Sullivan Show<span class="ch-cast">▶ cast</span></a></li>
-        </ul>
-      </div>
-
-    </div><!-- /view-cards -->
-
-    <!-- ACCORDION VIEW -->
-    <div id="view-accordion" class="accordion-view" style="display:none;">
-
-      <div class="accordion-item" style="--cat-color: #00cfff;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🎩</span>
-          <span class="accordion-label" data-i18n="cat_clasico">CINE CLÁSICO INTERNACIONAL</span>
-          <span class="accordion-meta">5 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@ArtflixPelículasClásicas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Artflix Películas Clásicas<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@CultCinemaClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cult Cinema Classics<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@BabelClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Classics<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Babel-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Movies<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@ElArchivo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>El Archivo<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #ff2d9b;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🇮🇹</span>
-          <span class="accordion-label" data-i18n="cat_italiano">CINE ITALIANO</span>
-          <span class="accordion-meta">4 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@Risateallitaliana-zm6cp/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Risate all'Italiana<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@cinemaitaliano-p8s/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinema Italiano<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@FilmManiaItalia/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film Mania Italia<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (IT/FR)<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #c44dff;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🇫🇷</span>
-          <span class="accordion-label" data-i18n="cat_frances">CINE FRANCÉS</span>
-          <span class="accordion-meta">2 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (FR/IT)<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #ffb800;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🌎</span>
-          <span class="accordion-label" data-i18n="cat_latino">CINE LATINOAMERICANO</span>
-          <span class="accordion-meta">12 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@LaCorrientePeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>La Corriente Películas<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@BigtimePeliculasGratis/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>BigTime Películas Gratis<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@butaca/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Butaca<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@MardeFIILMES/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Mar de Filmes<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Peliculaantigua/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Película Antigua<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@agarrenlapala2023/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Agarren la Pala<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@PelisParaTi/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis Para Ti<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@CineEmocionPeliculasCompletas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Emoción<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@CINETELMULTIMEDIA/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinetel Multimedia<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Pel%C3%ADculasLAT1/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Películas LAT 1<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Pel%C3%ADcuLATI/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>PelícuLATI<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@ChanguitaFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Changuita Films<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #00ff88;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🎬</span>
-          <span class="accordion-label" data-i18n="cat_espanol">CINE EN ESPAÑOL</span>
-          <span class="accordion-meta">12 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@UNIQUETIME_BD/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Unique Time BD<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Cinewoodcom/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinewood<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Visi%C3%B3n24-q3e/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Visión 24<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@PelisDeEstrella/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis de Estrella<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Isladecine-p9p/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Isla de Cine<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@YouMoviesEspa%C3%B1ol" target="_blank" rel="noopener"><span class="ch-bullet"></span>YouMovies Español<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@CinepolisChannelLatam/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinépolis Channel Latam<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@VIAJEALMUNDODELCINE/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Viaje al Mundo del Cine<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@CIneMasPeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineMás Películas<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@CinePerfecto-i9m/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Perfecto<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@ImpulsoCinematogr%C3%A1fico/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Impulso Cinematográfico<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@FrutaRaraTV-b9f/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fruta Rara TV<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #00cfff;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🌐</span>
-          <span class="accordion-label" data-i18n="cat_inter">CINE INTERNACIONAL</span>
-          <span class="accordion-meta">9 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@FilmandClips" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film and Clips<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@StreamTVFilms" target="_blank" rel="noopener"><span class="ch-bullet"></span>Stream TV Films<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Streamhouse_Official/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Streamhouse Official<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@CineStream_OfficialChannel/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineStream Official<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Boxoffice-Full-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Full Movies<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@MovieCentral/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Movie Central<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@ICONTVFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>ICON TV Films<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@XEFIROXY/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Xefiroxy<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@FandersonUfo" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fanderson UFO (UK Sci-Fi)<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #ffb800;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🤠</span>
-          <span class="accordion-label" data-i18n="cat_western">WESTERN &amp; ACCIÓN</span>
-          <span class="accordion-meta">3 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@PantallaVaqueraEspa%C3%B1ol/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pantalla Vaquera Español<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@Montanasdepelicula-wc8ez/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Montañas de Película<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@KvbyFilmleri/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Kvby Filmleri (Western TR)<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #ff3333;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">🔪</span>
-          <span class="accordion-label" data-i18n="cat_terror">TERROR &amp; THRILLER</span>
-          <span class="accordion-meta">2 canales</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@thehorrormoviezone/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Horror Movie Zone<span class="ch-cast">▶ cast</span></a></li>
-            <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="accordion-item" style="--cat-color: #c44dff;">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-icon">📺</span>
-          <span class="accordion-label" data-i18n="cat_tv">PROGRAMAS DE TV</span>
-          <span class="accordion-meta">1 canal</span>
-          <span class="accordion-arrow"></span>
-        </button>
-        <div class="accordion-body">
-          <ul class="channel-list">
-            <li class="channel-item"><a href="https://www.youtube.com/@TheEdSullivanShow/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Ed Sullivan Show<span class="ch-cast">▶ cast</span></a></li>
-          </ul>
-        </div>
-      </div>
-
-    </div><!-- /view-accordion -->
-  </section>
-
-  <!-- ============ SECCIÓN SITIOS GRATUITOS ============ -->
-  <section class="section" id="sect-links">
-    <div class="section-header">
-      <div class="section-title"><span>🌐</span> <span data-i18n="links_title">SITIOS DE STREAMING GRATUITO</span></div>
+    <div class="cat-card" style="--cat-bg:#E8472A; --cat-accent:#C03820;">
+      <div class="cat-header"><span class="cat-icon">🇮🇹</span><span class="cat-name" data-i18n="cat_italiano">CINE ITALIANO</span><span class="cat-count">4</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@Risateallitaliana-zm6cp/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Risate all'Italiana<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@cinemaitaliano-p8s/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinema Italiano<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@FilmManiaItalia/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film Mania Italia<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (IT/FR)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
 
-    <div class="cast-info">
-      <div class="cast-icon">ℹ️</div>
-      <div class="cast-text" data-i18n="links_note">
-        Estos sitios ofrecen películas y series <strong>legales y gratuitas</strong> con publicidad. Algunos requieren registro sin costo. Disponibles desde navegador web; para verlos en TV usar el <strong>botón Cast</strong> de Chrome/Brave o conexión por HDMI.
-      </div>
+    <div class="cat-card" style="--cat-bg:#1C1C7A; --cat-accent:#1C1C7A;">
+      <div class="cat-header"><span class="cat-icon">🇫🇷</span><span class="cat-name" data-i18n="cat_frances">CINE FRANCÉS</span><span class="cat-count">2</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (FR/IT)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
 
-    <div class="links-group-title" data-i18n="links_group1">◆ PLATAFORMAS EN ESPAÑOL / LATINOAMÉRICA</div>
-    <div class="links-grid">
-      <a class="link-card" href="https://www.pluto.tv/es" target="_blank" rel="noopener">
-        <div class="link-name">Pluto TV</div>
-        <div class="link-desc">TV en vivo y VOD gratuito. Canales de cine clásico, acción, comedia y más. Sin registro.</div>
-        <span class="link-tag">SIN REGISTRO</span>
-      </a>
-      <a class="link-card" href="https://www.cinear.com" target="_blank" rel="noopener">
-        <div class="link-name">CineAr</div>
-        <div class="link-desc">Cine argentino oficial. Producido y distribuido por el INCAA. Archivo cinematográfico nacional.</div>
-        <span class="link-tag">ARGENTINA</span>
-      </a>
-      <a class="link-card" href="https://www.cont.ar" target="_blank" rel="noopener">
-        <div class="link-name">Cont.ar</div>
-        <div class="link-desc">Plataforma pública argentina. Series, documentales, cine nacional y contenido cultural.</div>
-        <span class="link-tag">ARGENTINA</span>
-      </a>
-      <a class="link-card" href="https://www.cine.ar" target="_blank" rel="noopener">
-        <div class="link-name">Cine.ar Play</div>
-        <div class="link-desc">Estrenos y clásicos del cine argentino. Plataforma oficial del INCAA con contenido premium gratuito.</div>
-        <span class="link-tag">ARGENTINA</span>
-      </a>
-      <a class="link-card" href="https://play.filmaffinity.com" target="_blank" rel="noopener">
-        <div class="link-name">FilmAffinity Play</div>
-        <div class="link-desc">Películas legales y gratuitas integradas con la mayor base de datos de cine en español.</div>
-        <span class="link-tag">ES/LATAM</span>
-      </a>
+    <div class="cat-card" style="--cat-bg:#C9922A; --cat-accent:#C9922A;">
+      <div class="cat-header"><span class="cat-icon">🌎</span><span class="cat-name" data-i18n="cat_latino">CINE LATINOAMERICANO</span><span class="cat-count">12</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@LaCorrientePeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>La Corriente Películas<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@BigtimePeliculasGratis/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>BigTime Películas Gratis<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@butaca/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Butaca<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@MardeFIILMES/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Mar de Filmes<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Peliculaantigua/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Película Antigua<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@agarrenlapala2023/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Agarren la Pala<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@PelisParaTi/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis Para Ti<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CineEmocionPeliculasCompletas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Emoción<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CINETELMULTIMEDIA/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinetel Multimedia<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Pel%C3%ADculasLAT1/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Películas LAT 1<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Pel%C3%ADcuLATI/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>PelícuLATI<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ChanguitaFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Changuita Films<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
 
-    <div class="links-group-title" data-i18n="links_group2">◆ PLATAFORMAS INTERNACIONALES GRATUITAS</div>
-    <div class="links-grid">
-      <a class="link-card" href="https://tubitv.com" target="_blank" rel="noopener">
-        <div class="link-name">Tubi TV</div>
-        <div class="link-desc">Más de 50.000 títulos gratuitos. Amplio catálogo de cine clásico, terror, comedia y series. Con publicidad.</div>
-        <span class="link-tag">SIN REGISTRO</span>
-      </a>
-      <a class="link-card" href="https://www.kanopy.com" target="_blank" rel="noopener">
-        <div class="link-name">Kanopy</div>
-        <div class="link-desc">Cine de autor, documentales y clásicos. Acceso gratuito con tarjeta de biblioteca pública.</div>
-        <span class="link-tag">BIBLIOTECA</span>
-      </a>
-      <a class="link-card" href="https://www.plex.tv/watch-free" target="_blank" rel="noopener">
-        <div class="link-name">Plex (Gratis)</div>
-        <div class="link-desc">Canales de TV en vivo y películas on demand sin costo. Requiere registro gratuito.</div>
-        <span class="link-tag">REGISTRO GRATIS</span>
-      </a>
-      <a class="link-card" href="https://www.retrocrush.tv" target="_blank" rel="noopener">
-        <div class="link-name">RetroCrush</div>
-        <div class="link-desc">Anime clásico y películas retro japonesas en versión gratuita. Ideal para fans del cine asiático.</div>
-        <span class="link-tag">ANIME/RETRO</span>
-      </a>
-      <a class="link-card" href="https://archive.org/details/movies" target="_blank" rel="noopener">
-        <div class="link-name">Internet Archive</div>
-        <div class="link-desc">Miles de películas de dominio público: cine mudo, westerns, sci-fi vintage, documentales históricos.</div>
-        <span class="link-tag">DOMINIO PÚBLICO</span>
-      </a>
-      <a class="link-card" href="https://films.criterionchannel.com/free-films" target="_blank" rel="noopener">
-        <div class="link-name">Criterion Channel (gratis)</div>
-        <div class="link-desc">Selección gratuita de la colección Criterion. Cine de autor europeo y clásicos imprescindibles.</div>
-        <span class="link-tag">CINE ARTE</span>
-      </a>
-      <a class="link-card" href="https://www.imdb.com/tv/toprated" target="_blank" rel="noopener">
-        <div class="link-name">IMDB TV / Freevee</div>
-        <div class="link-desc">Plataforma gratuita de Amazon con películas y series. Disponible sin suscripción desde navegador.</div>
-        <span class="link-tag">SIN SUSCRIPCIÓN</span>
-      </a>
-      <a class="link-card" href="https://www.peacocktv.com/stream-free" target="_blank" rel="noopener">
-        <div class="link-name">Peacock (tier gratuito)</div>
-        <div class="link-desc">Cine clásico de Universal, NBC y más. El nivel gratuito incluye un catálogo amplio sin pago.</div>
-        <span class="link-tag">NIVEL GRATIS</span>
-      </a>
+    <div class="cat-card" style="--cat-bg:#2D6A2D; --cat-accent:#2D6A2D;">
+      <div class="cat-header"><span class="cat-icon">🎬</span><span class="cat-name" data-i18n="cat_espanol">CINE EN ESPAÑOL</span><span class="cat-count">12</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@UNIQUETIME_BD/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Unique Time BD<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Cinewoodcom/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinewood<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Visi%C3%B3n24-q3e/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Visión 24<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@PelisDeEstrella/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis de Estrella<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Isladecine-p9p/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Isla de Cine<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@YouMoviesEspa%C3%B1ol" target="_blank" rel="noopener"><span class="ch-bullet"></span>YouMovies Español<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CinepolisChannelLatam/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinépolis Channel Latam<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@VIAJEALMUNDODELCINE/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Viaje al Mundo del Cine<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CIneMasPeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineMás Películas<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CinePerfecto-i9m/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Perfecto<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ImpulsoCinematogr%C3%A1fico/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Impulso Cinematográfico<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@FrutaRaraTV-b9f/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fruta Rara TV<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
 
-    <div class="links-group-title" data-i18n="links_group3">◆ CINE CLÁSICO ESPECIALIZADO</div>
-    <div class="links-grid">
-      <a class="link-card" href="https://www.openculture.com/freemoviesonline" target="_blank" rel="noopener">
-        <div class="link-name">Open Culture</div>
-        <div class="link-desc">Curación editorial de películas gratuitas y de dominio público. Cine arte, vanguardia y clásicos.</div>
-        <span class="link-tag">CINE ARTE</span>
-      </a>
-      <a class="link-card" href="https://www.classiccinemaonline.com" target="_blank" rel="noopener">
-        <div class="link-name">Classic Cinema Online</div>
-        <div class="link-desc">Especializado en cine clásico de Hollywood: noir, comedias, westerns y drama de los años 30-60.</div>
-        <span class="link-tag">CLÁSICOS</span>
-      </a>
-      <a class="link-card" href="https://www.fandor.com/free" target="_blank" rel="noopener">
-        <div class="link-name">Fandor (muestra gratis)</div>
-        <div class="link-desc">Cine independiente y de arte. Sección gratuita con títulos seleccionados de su catálogo.</div>
-        <span class="link-tag">INDIE</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- ============ SECCIÓN CAST / CHROMECAST ============ -->
-  <section class="section" id="sect-cast">
-    <div class="section-header">
-      <div class="section-title"><span>📡</span> <span data-i18n="cast_title">CÓMO VER EN TU TV</span></div>
+    <div class="cat-card" style="--cat-bg:#4A4A8A; --cat-accent:#4A4A8A;">
+      <div class="cat-header"><span class="cat-icon">🌐</span><span class="cat-name" data-i18n="cat_inter">CINE INTERNACIONAL</span><span class="cat-count">9</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@FilmandClips" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film and Clips<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@StreamTVFilms" target="_blank" rel="noopener"><span class="ch-bullet"></span>Stream TV Films<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Streamhouse_Official/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Streamhouse Official<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CineStream_OfficialChannel/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineStream Official<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Boxoffice-Full-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Full Movies<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@MovieCentral/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Movie Central<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ICONTVFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>ICON TV Films<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@XEFIROXY/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Xefiroxy<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@FandersonUfo" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fanderson UFO (UK Sci-Fi)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
 
-    <div style="max-width: 780px; margin: 0 auto;">
-
-      <div class="cat-card" style="--cat-color: #00cfff; margin-bottom: 1.5rem;">
-        <div class="cat-header">
-          <span class="cat-icon">📱</span>
-          <span class="cat-name" data-i18n="cast_yt_title">DESDE YOUTUBE (CANALES DE ESTE SITIO)</span>
-        </div>
-        <div style="padding: 1.2rem 1.5rem; font-size: 0.8rem; line-height: 2; color: var(--muted);">
-          <p style="margin-bottom: 1rem;" data-i18n="cast_yt_1">① Tocá el link del canal que te interesa — se abre en YouTube.</p>
-          <p style="margin-bottom: 1rem;" data-i18n="cast_yt_2">② Elegí la película o video que quieras ver.</p>
-          <p style="margin-bottom: 1rem;" data-i18n="cast_yt_3">③ En la app de YouTube (iOS/Android), tocá el ícono de Cast <strong style="color: var(--cyan);">⊡</strong> que aparece en la esquina superior derecha del video.</p>
-          <p style="margin-bottom: 1rem;" data-i18n="cast_yt_4">④ Seleccioná tu dispositivo Chromecast o Smart TV de la lista.</p>
-          <p data-i18n="cast_yt_5">✓ El video se transmitirá directamente al televisor. Podés controlar la reproducción desde el celular.</p>
-        </div>
-      </div>
-
-      <div class="cat-card" style="--cat-color: #ffb800; margin-bottom: 1.5rem;">
-        <div class="cat-header">
-          <span class="cat-icon">🖥️</span>
-          <span class="cat-name" data-i18n="cast_browser_title">DESDE NAVEGADOR (SITIOS EXTERNOS)</span>
-        </div>
-        <div style="padding: 1.2rem 1.5rem; font-size: 0.8rem; line-height: 2; color: var(--muted);">
-          <p style="margin-bottom: 1rem;" data-i18n="cast_b1">① Abrí Google Chrome o Brave en tu computadora o celular.</p>
-          <p style="margin-bottom: 1rem;" data-i18n="cast_b2">② Navegá al sitio de streaming (Pluto TV, Tubi, etc.) desde este portal.</p>
-          <p style="margin-bottom: 1rem;" data-i18n="cast_b3">③ En Chrome de escritorio: menú ⋮ → <strong style="color: var(--amber);">Enviar a…</strong> → elegí tu Chromecast o Smart TV.</p>
-          <p style="margin-bottom: 1rem;" data-i18n="cast_b4">④ En Chrome mobile: tocá el ícono de Cast en la barra de notificaciones o dentro del reproductor del sitio.</p>
-          <p data-i18n="cast_b5">✓ Esto transmite toda la pestaña. Funciona con cualquier sitio que uses en Chrome.</p>
-        </div>
-      </div>
-
-      <div class="cat-card" style="--cat-color: #00ff88;">
-        <div class="cat-header">
-          <span class="cat-icon">📺</span>
-          <span class="cat-name" data-i18n="cast_smart_title">SMART TV (SIN CHROMECAST)</span>
-        </div>
-        <div style="padding: 1.2rem 1.5rem; font-size: 0.8rem; line-height: 2; color: var(--muted);">
-          <p style="margin-bottom: 1rem;" data-i18n="cast_s1">Si tu Smart TV tiene app de YouTube integrada, buscá el canal directamente allí.</p>
-          <p style="margin-bottom: 1rem;" data-i18n="cast_s2">Para sitios externos (Pluto TV, Tubi): muchos Smart TVs (Samsung, LG, Sony) los tienen como apps nativas. Buscalos en la tienda de tu TV.</p>
-          <p data-i18n="cast_s3">Alternativa universal: conectá tu computadora o celular al TV por <strong style="color: var(--green);">cable HDMI</strong> y reproducí desde el navegador.</p>
-        </div>
-      </div>
-
+    <div class="cat-card" style="--cat-bg:#8B5A00; --cat-accent:#8B5A00;">
+      <div class="cat-header"><span class="cat-icon">🤠</span><span class="cat-name" data-i18n="cat_western">WESTERN &amp; ACCIÓN</span><span class="cat-count">3</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@PantallaVaqueraEspa%C3%B1ol/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pantalla Vaquera Español<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Montanasdepelicula-wc8ez/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Montañas de Película<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@KvbyFilmleri/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Kvby Filmleri (Western TR)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
-  </section>
 
-  <!-- ============ SECCIÓN ACERCA ============ -->
-  <section class="section" id="sect-about">
-    <div class="section-header">
-      <div class="section-title"><span>🎞</span> <span data-i18n="about_title">ACERCA DE CINELINK 72</span></div>
+    <div class="cat-card" style="--cat-bg:#7A1C1C; --cat-accent:#7A1C1C;">
+      <div class="cat-header"><span class="cat-icon">🔪</span><span class="cat-name" data-i18n="cat_terror">TERROR &amp; THRILLER</span><span class="cat-count">2</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@thehorrormoviezone/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Horror Movie Zone<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
-    <div class="about-wrap">
-      <div class="about-block">
-        <p data-i18n="about_p1">CINELINK 72 es un portal curado de cine gratuito online. Reúne canales de YouTube y plataformas de streaming legal clasificados por género y origen, pensado para los amantes del séptimo arte que buscan películas de calidad sin costo alguno.</p>
-        <p data-i18n="about_p2">El sitio no aloja ni reproduce ningún contenido. Todos los links redirigen a plataformas legales y canales oficiales de YouTube. El acceso a los videos es gratuito y responsabilidad de cada plataforma y canal.</p>
-      </div>
-      <div class="about-block">
-        <p data-i18n="about_p3">El nombre rinde homenaje a la Regla 72 del cine: la regla no escrita de que una buena película necesita 72 minutos para contar algo verdadero. Y también a los grandes cineastas del Siglo XX que transformaron la sala oscura en un espacio de revelación.</p>
-        <p data-i18n="about_p4">Diseñado para verse desde cualquier dispositivo y transmitirse a pantalla grande vía Chromecast o Smart TV. Cine libre. Cine para todos.</p>
-      </div>
-      <div style="text-align:center; margin-top: 2rem; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em;">
-        <span style="color: var(--magenta); text-shadow: var(--glow-m);">CINELINK 72</span> &nbsp;·&nbsp; <span data-i18n="about_version">v1.0</span> &nbsp;·&nbsp; <span data-i18n="about_free">100% GRATUITO</span>
-      </div>
+
+    <div class="cat-card" style="--cat-bg:#141414; --cat-accent:#444;">
+      <div class="cat-header"><span class="cat-icon">📺</span><span class="cat-name" data-i18n="cat_tv">PROGRAMAS DE TV</span><span class="cat-count">1</span></div>
+      <ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@TheEdSullivanShow/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Ed Sullivan Show<span class="ch-cast">▶ CAST</span></a></li>
+      </ul>
     </div>
-  </section>
+
+  </div><!-- /view-cards -->
+
+  <!-- ── ACCORDION VIEW ── -->
+  <div id="view-accordion" class="accordion-view" style="display:none;">
+
+    <div class="accordion-item" style="--cat-bg:#1A8C8C; --cat-accent:#1A8C8C;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🎩</span>
+        <span class="accordion-label" data-i18n="cat_clasico">CINE CLÁSICO INTERNACIONAL</span>
+        <span class="accordion-meta">5 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@ArtflixPel%C3%ADculasCl%C3%A1sicas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Artflix Películas Clásicas<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CultCinemaClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cult Cinema Classics<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@BabelClassics" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Classics<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Babel-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Babel Movies<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ElArchivo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>El Archivo<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#E8472A; --cat-accent:#C03820;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🇮🇹</span>
+        <span class="accordion-label" data-i18n="cat_italiano">CINE ITALIANO</span>
+        <span class="accordion-meta">4 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@Risateallitaliana-zm6cp/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Risate all'Italiana<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@cinemaitaliano-p8s/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinema Italiano<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@FilmManiaItalia/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film Mania Italia<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (IT/FR)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#1C1C7A;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🇫🇷</span>
+        <span class="accordion-label" data-i18n="cat_frances">CINE FRANCÉS</span>
+        <span class="accordion-meta">2 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@imineo/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Imineo (FR/IT)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#C9922A;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🌎</span>
+        <span class="accordion-label" data-i18n="cat_latino">CINE LATINOAMERICANO</span>
+        <span class="accordion-meta">12 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@LaCorrientePeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>La Corriente Películas<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@BigtimePeliculasGratis/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>BigTime Películas Gratis<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@butaca/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Butaca<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@MardeFIILMES/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Mar de Filmes<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Peliculaantigua/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Película Antigua<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@agarrenlapala2023/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Agarren la Pala<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@PelisParaTi/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis Para Ti<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CineEmocionPeliculasCompletas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Emoción<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CINETELMULTIMEDIA/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinetel Multimedia<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Pel%C3%ADculasLAT1/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Películas LAT 1<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Pel%C3%ADcuLATI/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>PelícuLATI<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ChanguitaFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Changuita Films<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#2D6A2D;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🎬</span>
+        <span class="accordion-label" data-i18n="cat_espanol">CINE EN ESPAÑOL</span>
+        <span class="accordion-meta">12 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@UNIQUETIME_BD/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Unique Time BD<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Cinewoodcom/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinewood<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Visi%C3%B3n24-q3e/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Visión 24<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@PelisDeEstrella/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pelis de Estrella<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Isladecine-p9p/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Isla de Cine<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@YouMoviesEspa%C3%B1ol" target="_blank" rel="noopener"><span class="ch-bullet"></span>YouMovies Español<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CinepolisChannelLatam/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cinépolis Channel Latam<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@VIAJEALMUNDODELCINE/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Viaje al Mundo del Cine<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CIneMasPeliculas/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineMás Películas<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CinePerfecto-i9m/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Cine Perfecto<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ImpulsoCinematogr%C3%A1fico/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Impulso Cinematográfico<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@FrutaRaraTV-b9f/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fruta Rara TV<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#4A4A8A;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🌐</span>
+        <span class="accordion-label" data-i18n="cat_inter">CINE INTERNACIONAL</span>
+        <span class="accordion-meta">9 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@FilmandClips" target="_blank" rel="noopener"><span class="ch-bullet"></span>Film and Clips<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@StreamTVFilms" target="_blank" rel="noopener"><span class="ch-bullet"></span>Stream TV Films<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Streamhouse_Official/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Streamhouse Official<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@CineStream_OfficialChannel/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>CineStream Official<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Boxoffice-Full-Movies/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Full Movies<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@MovieCentral/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Movie Central<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@ICONTVFilms/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>ICON TV Films<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@XEFIROXY/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Xefiroxy<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@FandersonUfo" target="_blank" rel="noopener"><span class="ch-bullet"></span>Fanderson UFO (UK Sci-Fi)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#8B5A00;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🤠</span>
+        <span class="accordion-label" data-i18n="cat_western">WESTERN &amp; ACCIÓN</span>
+        <span class="accordion-meta">3 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@PantallaVaqueraEspa%C3%B1ol/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Pantalla Vaquera Español<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@Montanasdepelicula-wc8ez/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Montañas de Película<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@KvbyFilmleri/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Kvby Filmleri (Western TR)<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#7A1C1C;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">🔪</span>
+        <span class="accordion-label" data-i18n="cat_terror">TERROR &amp; THRILLER</span>
+        <span class="accordion-meta">2 canales</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@thehorrormoviezone/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Horror Movie Zone<span class="ch-cast">▶ CAST</span></a></li>
+        <li class="channel-item"><a href="https://www.youtube.com/@BoxOfficeThrillersFR/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>Box Office Thrillers FR<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+    <div class="accordion-item" style="--cat-bg:#141414;">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span class="accordion-icon">📺</span>
+        <span class="accordion-label" data-i18n="cat_tv">PROGRAMAS DE TV</span>
+        <span class="accordion-meta">1 canal</span>
+        <span class="accordion-arrow"></span>
+      </button>
+      <div class="accordion-body"><ul class="channel-list">
+        <li class="channel-item"><a href="https://www.youtube.com/@TheEdSullivanShow/videos" target="_blank" rel="noopener"><span class="ch-bullet"></span>The Ed Sullivan Show<span class="ch-cast">▶ CAST</span></a></li>
+      </ul></div>
+    </div>
+
+  </div><!-- /accordion -->
+</section>
+
+<!-- ════ SECCIÓN LINKS ════ -->
+<section class="section" id="sect-links">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow" data-i18n="links_eyebrow">PLATAFORMAS EXTERNAS</div>
+      <div class="section-title" data-i18n="links_title">STREAMING GRATUITO</div>
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-box-icon">◈</div>
+    <div class="info-box-text" data-i18n="links_note">Sitios con películas y series <strong>legales y gratuitas</strong> con publicidad. Algunos requieren registro sin costo. Para ver en TV: botón <strong>Cast</strong> de Chrome/Brave, o HDMI directo.</div>
+  </div>
+
+  <div class="links-group-title" data-i18n="links_group1">PLATAFORMAS EN ESPAÑOL / LATINOAMÉRICA</div>
+  <div class="links-grid">
+    <a class="link-card" href="https://www.pluto.tv/es" target="_blank" rel="noopener"><div class="link-name">Pluto TV</div><div class="link-desc">TV en vivo y VOD gratuito. Canales de cine clásico, acción, comedia. Sin registro.</div><span class="link-tag">SIN REGISTRO</span></a>
+    <a class="link-card" href="https://www.cinear.com" target="_blank" rel="noopener"><div class="link-name">CineAr</div><div class="link-desc">Cine argentino oficial. Producido y distribuido por el INCAA. Archivo cinematográfico nacional.</div><span class="link-tag">ARGENTINA</span></a>
+    <a class="link-card" href="https://www.cont.ar" target="_blank" rel="noopener"><div class="link-name">Cont.ar</div><div class="link-desc">Plataforma pública argentina. Series, documentales, cine nacional y contenido cultural.</div><span class="link-tag">ARGENTINA</span></a>
+    <a class="link-card" href="https://www.cine.ar" target="_blank" rel="noopener"><div class="link-name">Cine.ar Play</div><div class="link-desc">Estrenos y clásicos del cine argentino. Plataforma oficial del INCAA.</div><span class="link-tag">ARGENTINA</span></a>
+    <a class="link-card" href="https://play.filmaffinity.com" target="_blank" rel="noopener"><div class="link-name">FilmAffinity Play</div><div class="link-desc">Películas legales integradas con la mayor base de datos de cine en español.</div><span class="link-tag">ES / LATAM</span></a>
+  </div>
+
+  <div class="links-group-title" data-i18n="links_group2">PLATAFORMAS INTERNACIONALES GRATUITAS</div>
+  <div class="links-grid">
+    <a class="link-card" href="https://tubitv.com" target="_blank" rel="noopener"><div class="link-name">Tubi TV</div><div class="link-desc">Más de 50.000 títulos. Cine clásico, terror, comedia y series. Con publicidad.</div><span class="link-tag">SIN REGISTRO</span></a>
+    <a class="link-card" href="https://www.kanopy.com" target="_blank" rel="noopener"><div class="link-name">Kanopy</div><div class="link-desc">Cine de autor y clásicos. Acceso gratuito con tarjeta de biblioteca pública.</div><span class="link-tag">BIBLIOTECA</span></a>
+    <a class="link-card" href="https://www.plex.tv/watch-free" target="_blank" rel="noopener"><div class="link-name">Plex</div><div class="link-desc">Canales de TV en vivo y películas on demand sin costo. Registro gratuito.</div><span class="link-tag">REGISTRO GRATIS</span></a>
+    <a class="link-card" href="https://www.retrocrush.tv" target="_blank" rel="noopener"><div class="link-name">RetroCrush</div><div class="link-desc">Anime clásico y películas retro japonesas en versión gratuita.</div><span class="link-tag">ANIME / RETRO</span></a>
+    <a class="link-card" href="https://archive.org/details/movies" target="_blank" rel="noopener"><div class="link-name">Internet Archive</div><div class="link-desc">Miles de películas de dominio público: cine mudo, westerns, sci-fi vintage.</div><span class="link-tag">DOMINIO PÚBLICO</span></a>
+    <a class="link-card" href="https://films.criterionchannel.com/free-films" target="_blank" rel="noopener"><div class="link-name">Criterion (gratis)</div><div class="link-desc">Selección gratuita de la colección Criterion. Cine de autor europeo y clásicos.</div><span class="link-tag">CINE ARTE</span></a>
+    <a class="link-card" href="https://www.imdb.com/tv/toprated" target="_blank" rel="noopener"><div class="link-name">IMDB Freevee</div><div class="link-desc">Plataforma gratuita de Amazon con películas y series sin suscripción.</div><span class="link-tag">SIN SUSCRIPCIÓN</span></a>
+    <a class="link-card" href="https://www.peacocktv.com/stream-free" target="_blank" rel="noopener"><div class="link-name">Peacock (free)</div><div class="link-desc">Cine de Universal, NBC y más. Nivel gratuito con catálogo amplio.</div><span class="link-tag">NIVEL GRATIS</span></a>
+  </div>
+
+  <div class="links-group-title" data-i18n="links_group3">CINE CLÁSICO ESPECIALIZADO</div>
+  <div class="links-grid">
+    <a class="link-card" href="https://www.openculture.com/freemoviesonline" target="_blank" rel="noopener"><div class="link-name">Open Culture</div><div class="link-desc">Curación de películas gratuitas. Cine arte, vanguardia y clásicos.</div><span class="link-tag">CINE ARTE</span></a>
+    <a class="link-card" href="https://www.classiccinemaonline.com" target="_blank" rel="noopener"><div class="link-name">Classic Cinema Online</div><div class="link-desc">Hollywood clásico: noir, comedias, westerns de los años 30–60.</div><span class="link-tag">CLÁSICOS</span></a>
+    <a class="link-card" href="https://www.fandor.com/free" target="_blank" rel="noopener"><div class="link-name">Fandor (muestra)</div><div class="link-desc">Cine independiente y de arte. Selección gratuita de su catálogo.</div><span class="link-tag">INDIE</span></a>
+  </div>
+</section>
+
+<!-- ════ SECCIÓN CAST ════ -->
+<section class="section" id="sect-cast">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow" data-i18n="cast_eyebrow">GUÍA DE TRANSMISIÓN</div>
+      <div class="section-title" data-i18n="cast_title">CÓMO VER EN TU TV</div>
+    </div>
+  </div>
+  <div class="cast-grid">
+    <div class="cast-card" style="--cat-bg:#1A8C8C;">
+      <div class="cast-card-title" data-i18n="cast_yt_title">DESDE YOUTUBE</div>
+      <div class="cast-step"><div class="cast-step-num">1</div><div>Tocá el link del canal — se abre en <strong>YouTube</strong>.</div></div>
+      <div class="cast-step"><div class="cast-step-num">2</div><div>Elegí la película que querés ver.</div></div>
+      <div class="cast-step"><div class="cast-step-num">3</div><div>En la app YouTube (iOS/Android), tocá el ícono <strong>Cast ⊡</strong> arriba a la derecha.</div></div>
+      <div class="cast-step"><div class="cast-step-num">4</div><div>Seleccioná tu <strong>Chromecast o Smart TV</strong> de la lista.</div></div>
+      <div class="cast-step"><div class="cast-step-num">✓</div><div>El video se transmite al televisor. Controlás desde el celular.</div></div>
+    </div>
+    <div class="cast-card" style="--cat-bg:#E8472A;">
+      <div class="cast-card-title" data-i18n="cast_browser_title">DESDE NAVEGADOR</div>
+      <div class="cast-step"><div class="cast-step-num">1</div><div>Abrí <strong>Google Chrome</strong> o Brave en tu compu o celular.</div></div>
+      <div class="cast-step"><div class="cast-step-num">2</div><div>Navegá al sitio externo (Pluto TV, Tubi, etc.) desde este portal.</div></div>
+      <div class="cast-step"><div class="cast-step-num">3</div><div>Chrome desktop: menú <strong>⋮ → Enviar a…</strong> → elegí tu dispositivo.</div></div>
+      <div class="cast-step"><div class="cast-step-num">4</div><div>Chrome mobile: ícono <strong>Cast</strong> en barra de notificaciones.</div></div>
+      <div class="cast-step"><div class="cast-step-num">✓</div><div>Transmite toda la pestaña. Funciona con cualquier sitio en Chrome.</div></div>
+    </div>
+    <div class="cast-card" style="--cat-bg:#141414; border-bottom:none;">
+      <div class="cast-card-title" data-i18n="cast_smart_title">SMART TV NATIVO</div>
+      <div class="cast-step"><div class="cast-step-num">▶</div><div>Si tu Smart TV tiene <strong>YouTube integrado</strong>, buscá el canal directamente allí.</div></div>
+      <div class="cast-step"><div class="cast-step-num">▶</div><div>Para sitios externos: Samsung, LG y Sony tienen <strong>Pluto TV y Tubi</strong> como apps nativas.</div></div>
+      <div class="cast-step"><div class="cast-step-num">▶</div><div>Alternativa universal: cable <strong>HDMI</strong> desde compu o celular.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECCIÓN ABOUT ════ -->
+<section class="section" id="sect-about">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow" data-i18n="about_eyebrow">EL PROYECTO</div>
+      <div class="section-title" data-i18n="about_title">ACERCA DE CINELINK 72</div>
+    </div>
+  </div>
+  <div class="about-layout">
+    <div class="about-main">
+      <div class="about-pull" data-i18n="about_pull">"El cine es una ventana. CINELINK 72 reúne las mejores ventanas gratuitas de la red."</div>
+      <p class="about-p" data-i18n="about_p1">CINELINK 72 es un portal curado de cine gratuito online. Reúne canales de YouTube y plataformas de streaming legal clasificados por género y origen cinematográfico — desde la Nouvelle Vague francesa hasta el spaghetti western italiano, pasando por el cine latinoamericano y el thriller anglosajón.</p>
+      <p class="about-p" data-i18n="about_p2">El sitio no aloja ni reproduce ningún contenido propio. Todos los links redirigen a plataformas legales y canales oficiales de YouTube. El acceso es completamente gratuito.</p>
+      <p class="about-p" data-i18n="about_p3">El nombre rinde homenaje a la idea de que los grandes directores — Fellini, Truffaut, Visconti, René Clément, Leone — sabían que el número 72 era algo más que un año o un número. Era una promesa cinematográfica. Cine libre. Cine para todos.</p>
+    </div>
+    <div class="about-sidebar">
+      <div class="sidebar-stat"><div class="sidebar-num">50</div><div class="sidebar-label" data-i18n="stat_channels">CANALES YOUTUBE</div></div>
+      <div class="sidebar-stat"><div class="sidebar-num">9</div><div class="sidebar-label" data-i18n="stat_cats">GÉNEROS</div></div>
+      <div class="sidebar-stat"><div class="sidebar-num">16</div><div class="sidebar-label" data-i18n="stat_sites">SITIOS EXTERNOS</div></div>
+      <div class="sidebar-stat"><div class="sidebar-num">4</div><div class="sidebar-label" data-i18n="stat_langs">IDIOMAS UI</div></div>
+    </div>
+  </div>
+</section>
 
 </main>
 
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer>
-  <span>CINELINK 72</span> &nbsp;·&nbsp; <span data-i18n="footer_text">Portal de Cine Libre Online</span> &nbsp;·&nbsp; <span data-i18n="footer_free">Sin suscripción · Sin registro · Sin costo</span>
+  <div class="footer-brand">CINELINK 72</div>
+  <div class="footer-text" data-i18n="footer_text">PORTAL DE CINE LIBRE ONLINE · SIN SUSCRIPCIÓN · SIN REGISTRO · SIN COSTO</div>
+  <div class="footer-text" style="color:#444;">PWA · CHROMECAST READY · EST. 2026</div>
 </footer>
 
+<!-- ═══════════════════ JS ═══════════════════ -->
 <script>
-// ============ I18N ============
-const translations = {
-  es: {
-    site_title: "CINELINK 72",
-    tagline: "— TU SALA DE CINE ONLINE GRATUITA —",
-    status_online: "EN LÍNEA",
-    status_channels: "50 CANALES YOUTUBE",
-    status_free: "100% GRATUITO",
-    nav_youtube: "📺 CANALES YOUTUBE",
-    nav_links: "🌐 SITIOS GRATUITOS",
-    nav_cast: "📡 CÓMO VER EN TV",
-    nav_about: "🎞 ACERCA",
-    yt_title: "CANALES DE YOUTUBE",
-    view_cards: "▦ TARJETAS",
-    view_accord: "▼ ACORDEÓN",
-    cat_clasico: "CINE CLÁSICO INTERNACIONAL",
-    cat_italiano: "CINE ITALIANO",
-    cat_frances: "CINE FRANCÉS",
-    cat_latino: "CINE LATINOAMERICANO",
-    cat_espanol: "CINE EN ESPAÑOL",
-    cat_inter: "CINE INTERNACIONAL",
-    cat_western: "WESTERN & ACCIÓN",
-    cat_terror: "TERROR & THRILLER",
-    cat_tv: "PROGRAMAS DE TV",
-    links_title: "SITIOS DE STREAMING GRATUITO",
-    links_note: "Estos sitios ofrecen películas y series legales y gratuitas con publicidad. Algunos requieren registro sin costo. Disponibles desde navegador web; para verlos en TV usar el botón Cast de Chrome/Brave o conexión por HDMI.",
-    links_group1: "◆ PLATAFORMAS EN ESPAÑOL / LATINOAMÉRICA",
-    links_group2: "◆ PLATAFORMAS INTERNACIONALES GRATUITAS",
-    links_group3: "◆ CINE CLÁSICO ESPECIALIZADO",
-    cast_title: "CÓMO VER EN TU TV",
-    cast_yt_title: "DESDE YOUTUBE (CANALES DE ESTE SITIO)",
-    cast_yt_1: "① Tocá el link del canal que te interesa — se abre en YouTube.",
-    cast_yt_2: "② Elegí la película o video que quieras ver.",
-    cast_yt_3: "③ En la app de YouTube (iOS/Android), tocá el ícono de Cast ⊡ que aparece en la esquina superior derecha del video.",
-    cast_yt_4: "④ Seleccioná tu dispositivo Chromecast o Smart TV de la lista.",
-    cast_yt_5: "✓ El video se transmitirá directamente al televisor. Podés controlar la reproducción desde el celular.",
-    cast_browser_title: "DESDE NAVEGADOR (SITIOS EXTERNOS)",
-    cast_b1: "① Abrí Google Chrome o Brave en tu computadora o celular.",
-    cast_b2: "② Navegá al sitio de streaming desde este portal.",
-    cast_b3: "③ En Chrome de escritorio: menú ⋮ → Enviar a… → elegí tu Chromecast o Smart TV.",
-    cast_b4: "④ En Chrome mobile: tocá el ícono de Cast en la barra de notificaciones.",
-    cast_b5: "✓ Esto transmite toda la pestaña. Funciona con cualquier sitio que uses en Chrome.",
-    cast_smart_title: "SMART TV (SIN CHROMECAST)",
-    cast_s1: "Si tu Smart TV tiene app de YouTube integrada, buscá el canal directamente allí.",
-    cast_s2: "Para sitios externos: muchos Smart TVs (Samsung, LG, Sony) los tienen como apps nativas.",
-    cast_s3: "Alternativa universal: conectá tu computadora o celular al TV por cable HDMI.",
-    about_title: "ACERCA DE CINELINK 72",
-    about_p1: "CINELINK 72 es un portal curado de cine gratuito online. Reúne canales de YouTube y plataformas de streaming legal clasificados por género y origen.",
-    about_p2: "El sitio no aloja ni reproduce ningún contenido. Todos los links redirigen a plataformas legales y canales oficiales de YouTube.",
-    about_p3: "El nombre rinde homenaje a la Regla 72 del cine: la regla no escrita de que una buena película necesita 72 minutos para contar algo verdadero.",
-    about_p4: "Diseñado para verse desde cualquier dispositivo y transmitirse a pantalla grande vía Chromecast o Smart TV. Cine libre. Cine para todos.",
-    about_version: "v1.0",
-    about_free: "100% GRATUITO",
-    footer_text: "Portal de Cine Libre Online",
-    footer_free: "Sin suscripción · Sin registro · Sin costo"
-  },
-  it: {
-    site_title: "CINELINK 72",
-    tagline: "— LA TUA SALA CINEMA ONLINE GRATUITA —",
-    status_online: "IN LINEA",
-    status_channels: "50 CANALI YOUTUBE",
-    status_free: "100% GRATUITO",
-    nav_youtube: "📺 CANALI YOUTUBE",
-    nav_links: "🌐 SITI GRATUITI",
-    nav_cast: "📡 COME VEDERE IN TV",
-    nav_about: "🎞 CHI SIAMO",
-    yt_title: "CANALI DI YOUTUBE",
-    view_cards: "▦ SCHEDE",
-    view_accord: "▼ FISARMONICA",
-    cat_clasico: "CINEMA CLASSICO INTERNAZIONALE",
-    cat_italiano: "CINEMA ITALIANO",
-    cat_frances: "CINEMA FRANCESE",
-    cat_latino: "CINEMA LATINOAMERICANO",
-    cat_espanol: "CINEMA IN SPAGNOLO",
-    cat_inter: "CINEMA INTERNAZIONALE",
-    cat_western: "WESTERN & AZIONE",
-    cat_terror: "HORROR & THRILLER",
-    cat_tv: "PROGRAMMI TV",
-    links_title: "SITI DI STREAMING GRATUITO",
-    links_note: "Questi siti offrono film e serie legali e gratuiti con pubblicità. Alcuni richiedono registrazione gratuita.",
-    links_group1: "◆ PIATTAFORME IN SPAGNOLO / LATINOAMERICA",
-    links_group2: "◆ PIATTAFORME INTERNAZIONALI GRATUITE",
-    links_group3: "◆ CINEMA CLASSICO SPECIALIZZATO",
-    cast_title: "COME VEDERE SULLA TV",
-    cast_yt_title: "DA YOUTUBE (CANALI DI QUESTO SITO)",
-    cast_yt_1: "① Tocca il link del canale — si apre in YouTube.",
-    cast_yt_2: "② Scegli il film o video che vuoi vedere.",
-    cast_yt_3: "③ Nell'app YouTube (iOS/Android), tocca l'icona Cast ⊡ in alto a destra nel video.",
-    cast_yt_4: "④ Seleziona il tuo Chromecast o Smart TV dalla lista.",
-    cast_yt_5: "✓ Il video verrà trasmesso direttamente al televisore.",
-    cast_browser_title: "DAL BROWSER (SITI ESTERNI)",
-    cast_b1: "① Apri Google Chrome o Brave sul computer o cellulare.",
-    cast_b2: "② Naviga al sito streaming da questo portale.",
-    cast_b3: "③ In Chrome desktop: menu ⋮ → Trasmetti su… → scegli Chromecast o Smart TV.",
-    cast_b4: "④ In Chrome mobile: tocca l'icona Cast nella barra notifiche.",
-    cast_b5: "✓ Questo trasmette l'intera scheda. Funziona con qualsiasi sito in Chrome.",
-    cast_smart_title: "SMART TV (SENZA CHROMECAST)",
-    cast_s1: "Se il tuo Smart TV ha l'app YouTube integrata, cerca il canale direttamente lì.",
-    cast_s2: "Per siti esterni: molti Smart TV (Samsung, LG, Sony) li hanno come app native.",
-    cast_s3: "Alternativa universale: collega il computer o cellulare alla TV con cavo HDMI.",
-    about_title: "INFORMAZIONI SU CINELINK 72",
-    about_p1: "CINELINK 72 è un portale curato di cinema gratuito online. Riunisce canali YouTube e piattaforme di streaming legale classificati per genere e origine.",
-    about_p2: "Il sito non ospita né riproduce alcun contenuto. Tutti i link rimandano a piattaforme legali e canali YouTube ufficiali.",
-    about_p3: "Il nome rende omaggio alla Regola 72 del cinema: la regola non scritta che un buon film ha bisogno di 72 minuti per raccontare qualcosa di vero.",
-    about_p4: "Progettato per essere visto da qualsiasi dispositivo e trasmesso su grande schermo via Chromecast o Smart TV. Cinema libero. Cinema per tutti.",
-    about_version: "v1.0",
-    about_free: "100% GRATUITO",
-    footer_text: "Portale Cinema Libero Online",
-    footer_free: "Senza abbonamento · Senza registrazione · Senza costi"
-  },
-  fr: {
-    site_title: "CINELINK 72",
-    tagline: "— VOTRE SALLE DE CINÉMA GRATUITE EN LIGNE —",
-    status_online: "EN LIGNE",
-    status_channels: "50 CHAÎNES YOUTUBE",
-    status_free: "100% GRATUIT",
-    nav_youtube: "📺 CHAÎNES YOUTUBE",
-    nav_links: "🌐 SITES GRATUITS",
-    nav_cast: "📡 VOIR À LA TÉLÉ",
-    nav_about: "🎞 À PROPOS",
-    yt_title: "CHAÎNES YOUTUBE",
-    view_cards: "▦ CARTES",
-    view_accord: "▼ ACCORDÉON",
-    cat_clasico: "CINÉMA CLASSIQUE INTERNATIONAL",
-    cat_italiano: "CINÉMA ITALIEN",
-    cat_frances: "CINÉMA FRANÇAIS",
-    cat_latino: "CINÉMA LATINO-AMÉRICAIN",
-    cat_espanol: "CINÉMA EN ESPAGNOL",
-    cat_inter: "CINÉMA INTERNATIONAL",
-    cat_western: "WESTERN & ACTION",
-    cat_terror: "HORREUR & THRILLER",
-    cat_tv: "ÉMISSIONS TV",
-    links_title: "SITES DE STREAMING GRATUITS",
-    links_note: "Ces sites proposent des films et séries légaux et gratuits avec publicité. Certains nécessitent une inscription gratuite.",
-    links_group1: "◆ PLATEFORMES EN ESPAGNOL / AMÉRIQUE LATINE",
-    links_group2: "◆ PLATEFORMES INTERNATIONALES GRATUITES",
-    links_group3: "◆ CINÉMA CLASSIQUE SPÉCIALISÉ",
-    cast_title: "COMMENT REGARDER À LA TÉLÉVISION",
-    cast_yt_title: "DEPUIS YOUTUBE (CHAÎNES DE CE SITE)",
-    cast_yt_1: "① Touchez le lien de la chaîne — il s'ouvre dans YouTube.",
-    cast_yt_2: "② Choisissez le film ou la vidéo que vous souhaitez regarder.",
-    cast_yt_3: "③ Dans l'app YouTube (iOS/Android), touchez l'icône Cast ⊡ en haut à droite de la vidéo.",
-    cast_yt_4: "④ Sélectionnez votre Chromecast ou Smart TV dans la liste.",
-    cast_yt_5: "✓ La vidéo sera diffusée directement sur votre téléviseur.",
-    cast_browser_title: "DEPUIS LE NAVIGATEUR (SITES EXTERNES)",
-    cast_b1: "① Ouvrez Google Chrome ou Brave sur votre ordinateur ou téléphone.",
-    cast_b2: "② Naviguez vers le site de streaming depuis ce portail.",
-    cast_b3: "③ Dans Chrome bureau: menu ⋮ → Diffuser sur… → choisissez Chromecast ou Smart TV.",
-    cast_b4: "④ Dans Chrome mobile: touchez l'icône Cast dans la barre de notifications.",
-    cast_b5: "✓ Cela diffuse tout l'onglet. Fonctionne avec n'importe quel site dans Chrome.",
-    cast_smart_title: "SMART TV (SANS CHROMECAST)",
-    cast_s1: "Si votre Smart TV a l'app YouTube intégrée, recherchez la chaîne directement.",
-    cast_s2: "Pour les sites externes: beaucoup de Smart TV (Samsung, LG, Sony) les ont comme apps natives.",
-    cast_s3: "Alternative universelle: connectez votre ordinateur ou téléphone à la TV par câble HDMI.",
-    about_title: "À PROPOS DE CINELINK 72",
-    about_p1: "CINELINK 72 est un portail curé de cinéma gratuit en ligne. Il rassemble des chaînes YouTube et des plateformes de streaming légal classées par genre et origine.",
-    about_p2: "Le site n'héberge ni ne reproduit aucun contenu. Tous les liens redirigent vers des plateformes légales et des chaînes YouTube officielles.",
-    about_p3: "Le nom rend hommage à la Règle 72 du cinéma: la règle non écrite qu'un bon film a besoin de 72 minutes pour raconter quelque chose de vrai.",
-    about_p4: "Conçu pour être vu depuis n'importe quel appareil et diffusé sur grand écran via Chromecast ou Smart TV. Cinéma libre. Cinéma pour tous.",
-    about_version: "v1.0",
-    about_free: "100% GRATUIT",
-    footer_text: "Portail Cinéma Libre en Ligne",
-    footer_free: "Sans abonnement · Sans inscription · Sans frais"
-  },
-  en: {
-    site_title: "CINELINK 72",
-    tagline: "— YOUR FREE ONLINE MOVIE THEATER —",
-    status_online: "ONLINE",
-    status_channels: "50 YOUTUBE CHANNELS",
-    status_free: "100% FREE",
-    nav_youtube: "📺 YOUTUBE CHANNELS",
-    nav_links: "🌐 FREE SITES",
-    nav_cast: "📡 HOW TO WATCH ON TV",
-    nav_about: "🎞 ABOUT",
-    yt_title: "YOUTUBE CHANNELS",
-    view_cards: "▦ CARDS",
-    view_accord: "▼ ACCORDION",
-    cat_clasico: "INTERNATIONAL CLASSIC CINEMA",
-    cat_italiano: "ITALIAN CINEMA",
-    cat_frances: "FRENCH CINEMA",
-    cat_latino: "LATIN AMERICAN CINEMA",
-    cat_espanol: "SPANISH CINEMA",
-    cat_inter: "INTERNATIONAL CINEMA",
-    cat_western: "WESTERN & ACTION",
-    cat_terror: "HORROR & THRILLER",
-    cat_tv: "TV SHOWS",
-    links_title: "FREE STREAMING SITES",
-    links_note: "These sites offer legal, free movies and series with ads. Some require free registration. Available from any web browser; to watch on TV use Chrome/Brave Cast button or HDMI.",
-    links_group1: "◆ SPANISH / LATIN AMERICAN PLATFORMS",
-    links_group2: "◆ FREE INTERNATIONAL PLATFORMS",
-    links_group3: "◆ SPECIALIZED CLASSIC CINEMA",
-    cast_title: "HOW TO WATCH ON YOUR TV",
-    cast_yt_title: "FROM YOUTUBE (CHANNELS ON THIS SITE)",
-    cast_yt_1: "① Tap the channel link — it opens in YouTube.",
-    cast_yt_2: "② Choose the movie or video you want to watch.",
-    cast_yt_3: "③ In the YouTube app (iOS/Android), tap the Cast icon ⊡ in the top right of the video.",
-    cast_yt_4: "④ Select your Chromecast or Smart TV from the list.",
-    cast_yt_5: "✓ The video will stream directly to your TV. Control playback from your phone.",
-    cast_browser_title: "FROM BROWSER (EXTERNAL SITES)",
-    cast_b1: "① Open Google Chrome or Brave on your computer or phone.",
-    cast_b2: "② Navigate to the streaming site from this portal.",
-    cast_b3: "③ In Chrome desktop: menu ⋮ → Cast to… → choose your Chromecast or Smart TV.",
-    cast_b4: "④ In Chrome mobile: tap the Cast icon in the notifications bar.",
-    cast_b5: "✓ This casts the entire tab. Works with any site you use in Chrome.",
-    cast_smart_title: "SMART TV (WITHOUT CHROMECAST)",
-    cast_s1: "If your Smart TV has the YouTube app built-in, search for the channel directly there.",
-    cast_s2: "For external sites: many Smart TVs (Samsung, LG, Sony) have them as native apps.",
-    cast_s3: "Universal alternative: connect your computer or phone to the TV via HDMI cable.",
-    about_title: "ABOUT CINELINK 72",
-    about_p1: "CINELINK 72 is a curated portal for free online movies. It brings together YouTube channels and legal streaming platforms classified by genre and origin.",
-    about_p2: "The site does not host or reproduce any content. All links redirect to legal platforms and official YouTube channels.",
-    about_p3: "The name pays homage to Cinema Rule 72: the unwritten rule that a good film needs 72 minutes to tell something true.",
-    about_p4: "Designed to be viewed from any device and cast to a big screen via Chromecast or Smart TV. Free cinema. Cinema for everyone.",
-    about_version: "v1.0",
-    about_free: "100% FREE",
-    footer_text: "Free Online Cinema Portal",
-    footer_free: "No subscription · No registration · No cost"
-  }
+// ── I18N ──
+const T = {
+  es:{site_sub:"PERSONAL CINEMA NETWORK · EST. 2026",stat_channels:"CANALES\nYOUTUBE",stat_cats:"GÉNEROS\nCINE",stat_sites:"SITIOS\nEXTERNOS",stat_langs:"IDIOMAS\nUI",nav_youtube:"▶ CANALES YOUTUBE",nav_links:"◈ SITIOS GRATUITOS",nav_cast:"⊡ CÓMO VER EN TV",nav_about:"✦ ACERCA",yt_eyebrow:"DIRECTORIO DE CANALES",yt_title:"CANALES DE YOUTUBE",view_cards:"▦ TARJETAS",view_accord:"▼ ACORDEÓN",cat_clasico:"CINE CLÁSICO INTERNACIONAL",cat_italiano:"CINE ITALIANO",cat_frances:"CINE FRANCÉS",cat_latino:"CINE LATINOAMERICANO",cat_espanol:"CINE EN ESPAÑOL",cat_inter:"CINE INTERNACIONAL",cat_western:"WESTERN & ACCIÓN",cat_terror:"TERROR & THRILLER",cat_tv:"PROGRAMAS DE TV",links_eyebrow:"PLATAFORMAS EXTERNAS",links_title:"STREAMING GRATUITO",links_note:"Sitios con películas y series legales y gratuitas con publicidad. Algunos requieren registro sin costo. Para ver en TV: botón Cast de Chrome/Brave, o HDMI directo.",links_group1:"PLATAFORMAS EN ESPAÑOL / LATINOAMÉRICA",links_group2:"PLATAFORMAS INTERNACIONALES GRATUITAS",links_group3:"CINE CLÁSICO ESPECIALIZADO",cast_eyebrow:"GUÍA DE TRANSMISIÓN",cast_title:"CÓMO VER EN TU TV",cast_yt_title:"DESDE YOUTUBE",cast_browser_title:"DESDE NAVEGADOR",cast_smart_title:"SMART TV NATIVO",about_eyebrow:"EL PROYECTO",about_title:"ACERCA DE CINELINK 72",about_pull:'"El cine es una ventana. CINELINK 72 reúne las mejores ventanas gratuitas de la red."',about_p1:"CINELINK 72 es un portal curado de cine gratuito online. Reúne canales de YouTube y plataformas de streaming legal clasificados por género y origen cinematográfico.",about_p2:"El sitio no aloja ni reproduce ningún contenido. Todos los links redirigen a plataformas legales y canales oficiales de YouTube.",about_p3:"El nombre rinde homenaje a los grandes directores — Fellini, Truffaut, Visconti, René Clément, Leone. Cine libre. Cine para todos.",footer_text:"PORTAL DE CINE LIBRE ONLINE · SIN SUSCRIPCIÓN · SIN REGISTRO · SIN COSTO"},
+  it:{site_sub:"RETE PERSONALE DEL CINEMA · EST. 2026",stat_channels:"CANALI\nYOUTUBE",stat_cats:"GENERI\nCINEMA",stat_sites:"SITI\nESTERNI",stat_langs:"LINGUE\nUI",nav_youtube:"▶ CANALI YOUTUBE",nav_links:"◈ SITI GRATUITI",nav_cast:"⊡ GUARDA IN TV",nav_about:"✦ INFO",yt_eyebrow:"DIRECTORY CANALI",yt_title:"CANALI YOUTUBE",view_cards:"▦ SCHEDE",view_accord:"▼ FISARMONICA",cat_clasico:"CINEMA CLASSICO INTERNAZIONALE",cat_italiano:"CINEMA ITALIANO",cat_frances:"CINEMA FRANCESE",cat_latino:"CINEMA LATINOAMERICANO",cat_espanol:"CINEMA IN SPAGNOLO",cat_inter:"CINEMA INTERNAZIONALE",cat_western:"WESTERN & AZIONE",cat_terror:"HORROR & THRILLER",cat_tv:"PROGRAMMI TV",links_eyebrow:"PIATTAFORME ESTERNE",links_title:"STREAMING GRATUITO",links_note:"Siti con film e serie legali e gratuiti con pubblicità. Alcuni richiedono registrazione gratuita.",links_group1:"PIATTAFORME IN SPAGNOLO / LATINOAMERICA",links_group2:"PIATTAFORME INTERNAZIONALI GRATUITE",links_group3:"CINEMA CLASSICO SPECIALIZZATO",cast_eyebrow:"GUIDA ALLA TRASMISSIONE",cast_title:"COME GUARDARE IN TV",cast_yt_title:"DA YOUTUBE",cast_browser_title:"DAL BROWSER",cast_smart_title:"SMART TV NATIVO",about_eyebrow:"IL PROGETTO",about_title:"INFORMAZIONI SU CINELINK 72",about_pull:'"Il cinema è una finestra. CINELINK 72 raccoglie le migliori finestre gratuite della rete."',about_p1:"CINELINK 72 è un portale curato di cinema gratuito online. Riunisce canali YouTube e piattaforme di streaming legale classificati per genere e origine.",about_p2:"Il sito non ospita né riproduce alcun contenuto. Tutti i link rimandano a piattaforme legali e canali YouTube ufficiali.",about_p3:"Il nome rende omaggio ai grandi registi — Fellini, Truffaut, Visconti, René Clément, Leone. Cinema libero. Cinema per tutti.",footer_text:"PORTALE CINEMA LIBERO ONLINE · SENZA ABBONAMENTO · SENZA REGISTRAZIONE · GRATUITO"},
+  fr:{site_sub:"RÉSEAU PERSONNEL DE CINÉMA · EST. 2026",stat_channels:"CHAÎNES\nYOUTUBE",stat_cats:"GENRES\nCINÉMA",stat_sites:"SITES\nEXTERNES",stat_langs:"LANGUES\nUI",nav_youtube:"▶ CHAÎNES YOUTUBE",nav_links:"◈ SITES GRATUITS",nav_cast:"⊡ VOIR À LA TÉLÉ",nav_about:"✦ À PROPOS",yt_eyebrow:"RÉPERTOIRE DES CHAÎNES",yt_title:"CHAÎNES YOUTUBE",view_cards:"▦ CARTES",view_accord:"▼ ACCORDÉON",cat_clasico:"CINÉMA CLASSIQUE INTERNATIONAL",cat_italiano:"CINÉMA ITALIEN",cat_frances:"CINÉMA FRANÇAIS",cat_latino:"CINÉMA LATINO-AMÉRICAIN",cat_espanol:"CINÉMA EN ESPAGNOL",cat_inter:"CINÉMA INTERNATIONAL",cat_western:"WESTERN & ACTION",cat_terror:"HORREUR & THRILLER",cat_tv:"ÉMISSIONS TV",links_eyebrow:"PLATEFORMES EXTERNES",links_title:"STREAMING GRATUIT",links_note:"Sites proposant des films et séries légaux et gratuits avec publicité.",links_group1:"PLATEFORMES EN ESPAGNOL / AMÉRIQUE LATINE",links_group2:"PLATEFORMES INTERNATIONALES GRATUITES",links_group3:"CINÉMA CLASSIQUE SPÉCIALISÉ",cast_eyebrow:"GUIDE DE DIFFUSION",cast_title:"REGARDER À LA TÉLÉVISION",cast_yt_title:"DEPUIS YOUTUBE",cast_browser_title:"DEPUIS LE NAVIGATEUR",cast_smart_title:"SMART TV NATIF",about_eyebrow:"LE PROJET",about_title:"À PROPOS DE CINELINK 72",about_pull:'"Le cinéma est une fenêtre. CINELINK 72 rassemble les meilleures fenêtres gratuites du web."',about_p1:"CINELINK 72 est un portail curé de cinéma gratuit en ligne. Il rassemble des chaînes YouTube et des plateformes de streaming légal classées par genre et origine.",about_p2:"Le site n'héberge ni ne reproduit aucun contenu. Tous les liens redirigent vers des plateformes légales et des chaînes YouTube officielles.",about_p3:"Le nom rend hommage aux grands cinéastes — Fellini, Truffaut, Visconti, René Clément, Leone. Cinéma libre. Cinéma pour tous.",footer_text:"PORTAIL CINÉMA LIBRE EN LIGNE · SANS ABONNEMENT · SANS INSCRIPTION · GRATUIT"},
+  en:{site_sub:"PERSONAL CINEMA NETWORK · EST. 2026",stat_channels:"YOUTUBE\nCHANNELS",stat_cats:"FILM\nGENRES",stat_sites:"EXTERNAL\nSITES",stat_langs:"UI\nLANGS",nav_youtube:"▶ YOUTUBE CHANNELS",nav_links:"◈ FREE SITES",nav_cast:"⊡ WATCH ON TV",nav_about:"✦ ABOUT",yt_eyebrow:"CHANNEL DIRECTORY",yt_title:"YOUTUBE CHANNELS",view_cards:"▦ CARDS",view_accord:"▼ ACCORDION",cat_clasico:"INTERNATIONAL CLASSIC CINEMA",cat_italiano:"ITALIAN CINEMA",cat_frances:"FRENCH CINEMA",cat_latino:"LATIN AMERICAN CINEMA",cat_espanol:"SPANISH CINEMA",cat_inter:"INTERNATIONAL CINEMA",cat_western:"WESTERN & ACTION",cat_terror:"HORROR & THRILLER",cat_tv:"TV SHOWS",links_eyebrow:"EXTERNAL PLATFORMS",links_title:"FREE STREAMING",links_note:"Sites with legal, free movies and series with ads. Some require free registration. To watch on TV: Cast button in Chrome/Brave, or HDMI cable.",links_group1:"SPANISH / LATIN AMERICAN PLATFORMS",links_group2:"FREE INTERNATIONAL PLATFORMS",links_group3:"SPECIALIZED CLASSIC CINEMA",cast_eyebrow:"BROADCAST GUIDE",cast_title:"HOW TO WATCH ON TV",cast_yt_title:"FROM YOUTUBE",cast_browser_title:"FROM BROWSER",cast_smart_title:"NATIVE SMART TV",about_eyebrow:"THE PROJECT",about_title:"ABOUT CINELINK 72",about_pull:'"Cinema is a window. CINELINK 72 gathers the best free windows on the web."',about_p1:"CINELINK 72 is a curated portal for free online movies. It brings together YouTube channels and legal streaming platforms classified by genre and origin.",about_p2:"The site does not host or reproduce any content. All links redirect to legal platforms and official YouTube channels.",about_p3:"The name pays homage to the great directors — Fellini, Truffaut, Visconti, René Clément, Leone. Free cinema. Cinema for everyone.",footer_text:"FREE ONLINE CINEMA PORTAL · NO SUBSCRIPTION · NO REGISTRATION · NO COST"}
 };
 
-let currentLang = 'es';
-
 function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
-  const t = translations[lang];
+  const t = T[lang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key]) el.textContent = t[key];
+    const k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.textContent = t[k];
   });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
   document.documentElement.lang = lang;
 }
 
-// ============ SECTION NAV ============
+// ── NAV ──
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('sect-' + id).classList.add('active');
   const idx = ['youtube','links','cast','about'].indexOf(id);
   document.querySelectorAll('.nav-btn')[idx].classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ============ VIEW TOGGLE ============
-function setView(view) {
+// ── VIEW TOGGLE ──
+function setView(v) {
   const cards = document.getElementById('view-cards');
-  const accordion = document.getElementById('view-accordion');
-  const btnCards = document.getElementById('btn-cards');
-  const btnAcc = document.getElementById('btn-accordion');
-  if (view === 'cards') {
-    cards.style.display = 'grid';
-    accordion.style.display = 'none';
-    btnCards.classList.add('active');
-    btnAcc.classList.remove('active');
+  const acc = document.getElementById('view-accordion');
+  const bc = document.getElementById('btn-cards');
+  const ba = document.getElementById('btn-accordion');
+  if (v === 'cards') {
+    cards.style.display = 'grid'; acc.style.display = 'none';
+    bc.classList.add('active'); ba.classList.remove('active');
   } else {
-    cards.style.display = 'none';
-    accordion.style.display = 'flex';
-    btnCards.classList.remove('active');
-    btnAcc.classList.add('active');
+    cards.style.display = 'none'; acc.style.display = 'flex';
+    bc.classList.remove('active'); ba.classList.add('active');
   }
 }
 
-// ============ ACCORDION ============
+// ── ACCORDION ──
 function toggleAccordion(btn) {
   const item = btn.closest('.accordion-item');
   const isOpen = item.classList.contains('open');
   document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
+}
+
+// ── PWA SERVICE WORKER ──
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(r => console.log('[CINELINK72] SW:', r.scope))
+      .catch(e => console.warn('[CINELINK72] SW error:', e));
+  });
 }
 </script>
 </body>
