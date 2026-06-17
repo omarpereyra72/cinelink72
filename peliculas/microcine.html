@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICROCINE — CINELINK 72</title>
+<meta name="description" content="Microcine itinerante: 12 películas de culto con fichas, reflexiones bíblicas y guías de discusión para iglesias y hogares.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow+Condensed:wght@300;400;600;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:   #F5F0E0;
+  --black:   #111111;
+  --orange:  #D94F2A;
+  --teal:    #1A7A7A;
+  --gold:    #B8861E;
+  --red:     #8C1A1A;
+  --sepia:   #8B6914;
+  --paper:   #EDE8D5;
+  --panel:   #F8F4E8;
+  --ink:     #1C1C1C;
+  --muted:   #666;
+  --border:  #C8C0A8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── GRAIN ── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events:none; z-index:0;
+}
+
+/* ══════════════ HERO ══════════════ */
+.hero {
+  background: var(--black);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--gold);
+}
+
+.hero-filmstrip {
+  display: flex;
+  gap: 0;
+  background: #1a1a1a;
+  padding: 8px 0;
+  border-bottom: 2px solid #333;
+  overflow: hidden;
+}
+.hero-filmstrip-inner {
+  display: flex;
+  gap: 0;
+  animation: filmroll 20s linear infinite;
+  width: max-content;
+}
+@keyframes filmroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.filmhole {
+  width: 24px; height: 20px;
+  background: #111;
+  border: 1px solid #444;
+  border-radius: 2px;
+  margin: 0 8px;
+  flex-shrink: 0;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 3rem;
+}
+
+.hero-text {}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.hero-eyebrow::before { content:''; display:inline-block; width:40px; height:1px; background:var(--gold); }
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.9;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+  font-size: 0.55em;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(245,240,224,0.6);
+  margin: 1.5rem 0;
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--orange);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(245,240,224,0.5);
+  text-transform: uppercase;
+}
+
+/* Projector icon */
+.hero-projector {
+  width: 160px;
+  opacity: 0.7;
+}
+
+/* back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(184,134,30,0.3);
+  margin-bottom: 2rem;
+  transition: all 0.15s;
+  text-transform: uppercase;
+}
+.back-link:hover {
+  background: rgba(184,134,30,0.1);
+  border-color: var(--gold);
+}
+
+/* ══════════════ FILM GRID ══════════════ */
+.film-grid-section {
+  background: var(--cream);
+  position: relative;
+  z-index: 1;
+}
+
+.section-divider {
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+}
+.divider-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.divider-line { flex: 1; height: 1px; background: rgba(184,134,30,0.3); }
+
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0;
+  border-left: 2px solid var(--border);
+  border-top: 2px solid var(--border);
+}
+
+/* ── FILM CARD ── */
+.film-card {
+  background: var(--panel);
+  border-right: 2px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.film-card:hover {
+  background: var(--white);
+  z-index: 2;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.film-month {
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--black);
+  color: var(--gold);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  padding: 0.25rem 0.6rem;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+.film-poster-wrap {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  background: var(--black);
+}
+.film-poster-wrap img, .film-poster-wrap object {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.film-card:hover .film-poster-wrap img { transform: scale(1.04); }
+
+.film-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 50%);
+  pointer-events: none;
+}
+
+.film-info {
+  padding: 1rem 1rem 1.2rem;
+  border-top: 2px solid var(--border);
+}
+.film-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  color: var(--black);
+  margin-bottom: 0.3rem;
+}
+.film-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+.film-year {
+  background: var(--teal);
+  color: white;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.55rem;
+}
+.film-dir {
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.film-tags {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+.film-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.film-cta {
+  margin-top: 0.8rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.film-cta::before { content:'▶'; font-size:0.5rem; }
+
+/* ══════════════ MODAL ══════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  overflow-y: auto;
+  animation: fadeOverlay 0.3s ease;
+}
+@keyframes fadeOverlay { from{opacity:0} to{opacity:1} }
+.modal-overlay.open { display: block; }
+
+.modal {
+  background: var(--paper);
+  max-width: 900px;
+  margin: 2rem auto;
+  border: 3px solid var(--black);
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.modal-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: var(--black);
+  color: var(--cream);
+  border: none;
+  width: 36px; height: 36px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--orange); }
+
+/* Modal header */
+.modal-header {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  border-bottom: 3px solid var(--black);
+  background: var(--black);
+}
+.modal-poster {
+  width: 200px;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.modal-poster img, .modal-poster object {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.modal-title-block {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.modal-month-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.modal-month-badge::before { content:''; display:inline-block; width:30px; height:1px; background:var(--gold); }
+.modal-film-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.modal-film-original {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(245,240,224,0.5);
+  margin-bottom: 1rem;
+}
+.modal-film-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--orange);
+  letter-spacing: 0.2em;
+}
+
+/* Modal body */
+.modal-body {
+  padding: 0;
+}
+
+.modal-section {
+  padding: 1.8rem 2rem;
+  border-bottom: 2px solid var(--border);
+}
+.modal-section:last-child { border-bottom: none; }
+
+.modal-section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.modal-section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* Ficha técnica */
+.ficha-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+.ficha-item {}
+.ficha-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.ficha-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+/* Tabs */
+.modal-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--black);
+  border-bottom: 2px solid var(--black);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.modal-tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  color: rgba(245,240,224,0.5);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.tab-btn.active { background: var(--orange); color: var(--cream); }
+.tab-btn:hover:not(.active) { color: var(--cream); background: rgba(255,255,255,0.05); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Text blocks */
+.rich-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: #333;
+}
+.rich-text p { margin-bottom: 1rem; }
+.rich-text p:last-child { margin-bottom: 0; }
+.rich-text strong { color: var(--ink); }
+.rich-text em { color: var(--sepia); }
+
+/* Bible block */
+.bible-verse {
+  background: var(--black);
+  border-left: 4px solid var(--gold);
+  padding: 1.2rem 1.5rem;
+  margin: 1.2rem 0;
+}
+.bible-verse-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+.bible-verse-ref {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* Reflection list */
+.reflection-list {
+  list-style: none;
+  padding: 0;
+}
+.reflection-list li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #333;
+}
+.reflection-list li:last-child { border-bottom: none; }
+.reflection-bullet {
+  color: var(--orange);
+  font-size: 1.2rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+/* Conclusion box */
+.conclusion-box {
+  background: var(--teal);
+  padding: 1.5rem 2rem;
+  margin-top: 1rem;
+}
+.conclusion-box p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--cream);
+}
+
+/* Curiosities */
+.curiosity-item {
+  display: flex;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.curiosity-item:last-child { border-bottom: none; }
+.curiosity-num {
+  font-family: 'Bebas Neue', 'DM Mono', monospace;
+  font-size: 1.5rem;
+  color: var(--orange);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 30px;
+}
+.curiosity-text {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #444;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Nav arrows in modal */
+.modal-nav {
+  display: flex;
+  justify-content: space-between;
+  background: var(--black);
+  border-top: 2px solid #333;
+}
+.modal-nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--gold);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.modal-nav-btn:hover { background: rgba(255,255,255,0.05); }
+.modal-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* ══════════════ FOOTER ══════════════ */
+.micro-footer {
+  background: var(--black);
+  text-align: center;
+  padding: 2rem;
+  border-top: 3px solid var(--gold);
+}
+.micro-footer p {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: #444;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.micro-footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media (max-width: 600px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-projector { display: none; }
+  .modal-header { grid-template-columns: 120px 1fr; }
+  .modal-poster { width: 120px; }
+  .modal-film-title { font-size: 1.5rem; }
+  .modal { margin: 0; }
+  .ficha-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="hero">
+  <!-- Film strip -->
+  <div class="hero-filmstrip">
+    <div class="hero-filmstrip-inner">
+      <!-- 30 holes × 2 for loop -->
+      <div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div>
+      <div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div>
+    </div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <a href="../index.html" class="back-link">← Volver a CINELINK 72</a>
+      <div class="hero-eyebrow">CINELINK 72 · CICLO ANUAL</div>
+      <div class="hero-title">
+        MICRO<br>CINE
+        <em>Doce películas para el alma</em>
+      </div>
+      <p class="hero-tagline">Un ciclo itinerante de cine de culto para iglesias, hogares de ancianos y comunidades. Cada mes, una película que interpela, conmueve y transforma.</p>
+      <div class="hero-meta">
+        <div><div class="hero-stat-num">12</div><div class="hero-stat-label">Películas</div></div>
+        <div><div class="hero-stat-num">12</div><div class="hero-stat-label">Meses</div></div>
+        <div><div class="hero-stat-num">∞</div><div class="hero-stat-label">Reflexiones</div></div>
+      </div>
+    </div>
+    <!-- Projector SVG -->
+    <svg class="hero-projector" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="lensG" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+          <stop offset="60%" stop-color="#B8861E" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#B8861E" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- beam -->
+      <polygon points="30,90 0,30 0,150" fill="#B8861E" opacity="0.15">
+        <animate attributeName="opacity" values="0.1;0.2;0.1" dur="3s" repeatCount="indefinite"/>
+      </polygon>
+      <!-- reel top -->
+      <circle cx="100" cy="40" r="34" fill="none" stroke="#B8861E" stroke-width="2.5" opacity="0.8"/>
+      <circle cx="100" cy="40" r="22" fill="#1a1a1a" stroke="#B8861E" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="100" cy="40" r="7" fill="#B8861E" opacity="0.9"/>
+      <line x1="100" y1="18" x2="100" y2="10" stroke="#B8861E" stroke-width="2" opacity="0.8"/>
+      <line x1="122" y1="28" x2="128" y2="22" stroke="#B8861E" stroke-width="2" opacity="0.8"/>
+      <line x1="122" y1="52" x2="128" y2="58" stroke="#B8861E" stroke-width="2" opacity="0.8"/>
+      <line x1="100" y1="62" x2="100" y2="70" stroke="#B8861E" stroke-width="2" opacity="0.8"/>
+      <line x1="78" y1="52" x2="72" y2="58" stroke="#B8861E" stroke-width="2" opacity="0.8"/>
+      <line x1="78" y1="28" x2="72" y2="22" stroke="#B8861E" stroke-width="2" opacity="0.8"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 100 40" to="360 100 40" dur="6s" repeatCount="indefinite"/>
+      <!-- reel bottom -->
+      <circle cx="100" cy="160" r="34" fill="none" stroke="#D94F2A" stroke-width="2.5" opacity="0.7"/>
+      <circle cx="100" cy="160" r="22" fill="#1a1a1a" stroke="#D94F2A" stroke-width="1.5" opacity="0.7"/>
+      <circle cx="100" cy="160" r="7" fill="#D94F2A" opacity="0.9"/>
+      <line x1="100" y1="126" x2="100" y2="118" stroke="#D94F2A" stroke-width="2" opacity="0.7"/>
+      <line x1="122" y1="148" x2="128" y2="142" stroke="#D94F2A" stroke-width="2" opacity="0.7"/>
+      <line x1="122" y1="172" x2="128" y2="178" stroke="#D94F2A" stroke-width="2" opacity="0.7"/>
+      <line x1="100" y1="182" x2="100" y2="190" stroke="#D94F2A" stroke-width="2" opacity="0.7"/>
+      <line x1="78" y1="172" x2="72" y2="178" stroke="#D94F2A" stroke-width="2" opacity="0.7"/>
+      <line x1="78" y1="148" x2="72" y2="142" stroke="#D94F2A" stroke-width="2" opacity="0.7"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 100 160" to="-360 100 160" dur="6s" repeatCount="indefinite"/>
+      <!-- film strip -->
+      <rect x="88" y="74" width="24" height="56" fill="#222" stroke="#555" stroke-width="1"/>
+      <rect x="88" y="78" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="106" y="78" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="88" y="90" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="106" y="90" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="88" y="102" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="106" y="102" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="88" y="114" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="106" y="114" width="6" height="6" rx="1" fill="#111"/>
+      <rect x="94" y="80" width="12" height="8" fill="#B8861E" opacity="0.3"/>
+      <rect x="94" y="92" width="12" height="8" fill="#D94F2A" opacity="0.3"/>
+      <rect x="94" y="104" width="12" height="8" fill="#1A7A7A" opacity="0.3"/>
+      <!-- projector body -->
+      <rect x="42" y="80" width="48" height="44" rx="4" fill="#222" stroke="#B8861E" stroke-width="1.5"/>
+      <!-- lens -->
+      <circle cx="50" cy="102" r="18" fill="#0d0d1f" stroke="#B8861E" stroke-width="2"/>
+      <circle cx="50" cy="102" r="13" fill="#060612" stroke="#555" stroke-width="1"/>
+      <circle cx="50" cy="102" r="9" fill="url(#lensG)" opacity="0.9">
+        <animate attributeName="r" values="8;10;8" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <ellipse cx="46" cy="98" rx="3" ry="2" fill="white" opacity="0.5"/>
+      <!-- power dot -->
+      <circle cx="80" cy="84" r="4" fill="#1A7A7A">
+        <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+      <!-- base -->
+      <rect x="58" y="124" width="32" height="8" rx="2" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+      <rect x="66" y="132" width="16" height="10" rx="1" fill="#111" stroke="#222" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- bottom strip -->
+  <div class="hero-filmstrip" style="border-top:2px solid #333; border-bottom:none;">
+    <div class="hero-filmstrip-inner">
+      <div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div>
+      <div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div><div class="filmhole"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ GRID ══════════════ -->
+<div class="film-grid-section">
+  <div class="section-divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">✦ CICLO ANUAL — 12 PELÍCULAS · 12 MESES · 12 REFLEXIONES ✦</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="film-grid" id="filmGrid">
+    <!-- Cards generadas por JS -->
+  </div>
+</div>
+
+<!-- ══════════════ MODAL ══════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeIfOverlay(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="modal-header">
+      <div class="modal-poster">
+        <img id="modalImg" src="" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <object id="modalSvg" data="" type="image/svg+xml" style="display:none; width:100%; height:100%;"></object>
+      </div>
+      <div class="modal-title-block">
+        <div class="modal-month-badge" id="modalMonth"></div>
+        <div class="modal-film-title" id="modalTitle"></div>
+        <div class="modal-film-original" id="modalOriginal"></div>
+        <div class="modal-film-year" id="modalYear"></div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <!-- FICHA -->
+      <div class="modal-section">
+        <div class="modal-section-title">Ficha Técnica</div>
+        <div class="ficha-grid" id="fichaGrid"></div>
+      </div>
+
+      <!-- TABS -->
+      <div class="modal-tabs">
+        <button class="tab-btn active" onclick="showTab('presentacion',this)">✦ Presentación</button>
+        <button class="tab-btn" onclick="showTab('curiosidades',this)">◎ Curiosidades</button>
+        <button class="tab-btn" onclick="showTab('biblia',this)">✞ Reflexión Bíblica</button>
+        <button class="tab-btn" onclick="showTab('conclusion',this)">◈ Conclusión</button>
+      </div>
+
+      <div class="modal-section">
+        <div class="tab-content active" id="tab-presentacion">
+          <div class="rich-text" id="tabPresentacion"></div>
+        </div>
+        <div class="tab-content" id="tab-curiosidades">
+          <div id="tabCuriosidades"></div>
+        </div>
+        <div class="tab-content" id="tab-biblia">
+          <div class="rich-text" id="tabBiblia"></div>
+        </div>
+        <div class="tab-content" id="tab-conclusion">
+          <div class="rich-text" id="tabConclusion"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-nav">
+      <button class="modal-nav-btn" id="btnPrev" onclick="navigateFilm(-1)">← ANTERIOR</button>
+      <button class="modal-nav-btn" id="btnNext" onclick="navigateFilm(1)">SIGUIENTE →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<div class="micro-footer">
+  <p>MICROCINE · CINELINK 72 · CICLO ANUAL DE CINE DE CULTO</p>
+  <p>Para iglesias · hogares de ancianos · comunidades · cinéfilos del alma</p>
+  <p><a href="../index.html">← Volver a CINELINK 72</a></p>
+</div>
+
+<!-- ══════════════ DATA & JS ══════════════ -->
+<script>
+const MESES = ["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
+
+const FILMS = [
+{
+  id:"pleno_sol", mes:0,
+  titulo:"A Pleno Sol",
+  original:"Plein Soleil",
+  anio:1960, pais:"Francia / Italia",
+  director:"René Clément",
+  guion:"René Clément, Paul Gégauff",
+  elenco:"Alain Delon, Marie Laforêt, Maurice Ronet",
+  fotografia:"Henri Decaë",
+  musica:"Nino Rota",
+  duracion:"118 min",
+  genero:"Thriller / Drama Psicológico",
+  tags:["thriller","noir","delon","Rota"],
+  presentacion:`<p>Cuando las luces se apaguen y la pantalla cobre vida, seremos testigos de uno de los retratos más perturbadores y fascinantes que el cine europeo haya dado jamás. <em>A Pleno Sol</em> nos presenta a Tom Ripley, un joven de escasos recursos enviado a Italia para convencer a un amigo rico de que regrese a casa. Lo que encontrará es la tentación de convertirse en otro, de usurpar una identidad, de cruzar la línea moral que separa el deseo del crimen.</p><p>René Clément filmó el sol del Mediterráneo como nunca antes se había hecho: brillante, cegador, hermoso y amoral. El sol que todo lo ilumina también todo lo oculta. Y en ese juego de luz y sombra, Alain Delon —con apenas 24 años— entregó una actuación que lo convertiría en mito.</p><p>Esta noche no veremos simplemente una película de suspenso. Veremos una radiografía del alma humana cuando la envidia, la codicia y la mentira toman el timón de una vida.</p>`,
+  curiosidades:[
+    "La novela original de Patricia Highsmith tenía un final diferente: Ripley salía impune. Clément eligió un final de justicia poética que no estaba en el libro.",
+    "Nino Rota —el mismo compositor de El Padrino— creó una banda sonora que oscila entre el idilio mediterráneo y la amenaza latente. Es una de sus obras más logradas.",
+    "Alain Delon aprendió a navegar específicamente para esta película. Las escenas en velero son reales.",
+    "Henri Decaë, el director de fotografía, rechazó filtros y trucos: filmó el sol real de Nápoles e Ischia para que el calor fuera físicamente palpable en la pantalla.",
+    "Matt Damon interpretaría a Ripley en 1999 en El talentoso Mr. Ripley, pero ninguna versión capturó la frialdad elegante de Delon."
+  ],
+  biblia:`<p>Tom Ripley es un hombre que decide construir su identidad robando la de otro. Miente, falsifica, asesina. Y sin embargo, la película nos hace incómodos porque entendemos sus motivaciones: el anhelo de pertenecer, de ser amado, de tener dignidad.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Porque el amor al dinero es raíz de todos los males; el cual codiciando algunos, se extraviaron de la fe, y fueron traspasados de muchos dolores."</div><div class="bible-verse-ref">1 Timoteo 6:10</div></div>
+  <p>La historia de Ripley comienza con un deseo comprensible —mejorar su condición— y termina en un laberinto sin salida. La Escritura no condena la pobreza ni el deseo de prosperidad. Lo que advierte es sobre el camino que tomamos cuando ese deseo se vuelve absoluto.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"¿De qué le sirve al hombre ganar el mundo entero, si pierde su alma?"</div><div class="bible-verse-ref">Marcos 8:36</div></div>
+  <p>Ripley gana el mundo de Greenleaf —su dinero, su identidad, su novia— y en ese mismo momento se pierde a sí mismo. La película termina con el triunfo aparente del engaño, pero en esa imagen final hay una soledad absoluta: el precio de vivir como otro, de no poder ser uno mismo jamás.</p>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Cuántas veces deseamos ser "otro" porque no amamos quiénes somos? ¿Qué dice la fe sobre nuestra identidad y dignidad como personas únicas y amadas?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La envidia de Ripley es comprensible —humana— y eso nos incomoda. ¿Cómo reconocemos la envidia en nuestro propio corazón antes de que nos lleve a lugares oscuros?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>¿Puede alguien vivir una vida basada en una mentira y ser verdaderamente feliz? ¿Qué experiencias personales nos hablan de esto?</span></li>
+  </ul>`,
+  conclusion:`<p>Al encenderse las luces, llevamos con nosotros la imagen de ese hombre al sol —hermoso, exitoso, solo— que logró todo lo que quería y no tiene a nadie con quien celebrarlo. El cine nos da el privilegio de vivir otras vidas sin pagarlas.</p><p>La pregunta que nos deja <em>A Pleno Sol</em> es antigua y urgente: ¿quién soy yo, más allá de lo que tengo, de lo que aparento, de lo que otros creen de mí? La respuesta que da la fe es radical: eres amado antes de merecer nada. Esa es la identidad que nadie puede robarte.</p>`
+},
+{
+  id:"angel_azul", mes:1,
+  titulo:"El Ángel Azul",
+  original:"Der blaue Engel",
+  anio:1930, pais:"Alemania",
+  director:"Josef von Sternberg",
+  guion:"Carl Zuckmayer, Karl Vollmöller",
+  elenco:"Marlene Dietrich, Emil Jannings",
+  fotografia:"Günther Rittau",
+  musica:"Friedrich Hollaender",
+  duracion:"104 min",
+  genero:"Drama / Musical",
+  tags:["dietrich","expresionismo","drama","clásico"],
+  presentacion:`<p>Antes de que comenzara el film, el mundo ya no era el mismo. Era 1930, Alemania estaba al borde del abismo político, y en ese momento de fractura histórica nació una de las figuras más magnéticas que la pantalla ha conocido: Marlene Dietrich.</p><p>Esta noche vemos la historia de un profesor respetable —el profesor Rath, interpretado por Emil Jannings— que descubre el cabaret <em>El Ángel Azul</em> mientras persigue a sus alumnos. Allí conoce a Lola-Lola, y lo que comenzó como indignación moral se convierte en obsesión, en amor, en ruina.</p><p>Josef von Sternberg filmó la degradación humana con una ternura cruel. No hay villanos aquí: solo un hombre que eligió amar lo que amó, y pagó el precio. Una de las primeras películas sonoras alemanas, y ya entonces perfecta.</p>`,
+  curiosidades:[
+    "Marlene Dietrich tenía 28 años y era prácticamente desconocida. El director Von Sternberg se enamoró de ella durante el rodaje; la canción 'Ich bin von Kopf bis Fuß' la catapultó a la fama mundial.",
+    "Emil Jannings ganó el primer Oscar de la historia al Mejor Actor. Pero fue Dietrich, sin nominación, quien se quedó con la eternidad.",
+    "El filme fue rodado simultáneamente en alemán e inglés —práctica común en el cine sonoro temprano para ahorrar en subtítulos.",
+    "La imagen de Dietrich sentada en un barril, con sombrero de copa y medias de rejilla, es uno de los iconos visuales más reproducidos del siglo XX.",
+    "Heinrich Mann, autor de la novela en que se basa el film, odiaba la adaptación. Paradójicamente, hoy la película es más conocida que el libro."
+  ],
+  biblia:`<p>El profesor Rath era un hombre de orden, de respeto, de normas. Y lo que lo destruyó no fue Lola —fue su propia incapacidad para integrar el amor con su identidad. Amó, pero no supo cómo. Se humilló, se perdió, no encontró el camino de vuelta.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"El que halla su vida, la perderá; y el que pierde su vida por causa de mí, la hallará."</div><div class="bible-verse-ref">Mateo 10:39</div></div>
+  <p>Hay una paradoja profunda aquí: Rath perdió su vida —su posición, su dignidad, su razón— pero no fue por amor verdadero, sino por una pasión que nunca se transformó en comunión. El amor auténtico, según las Escrituras, no se destruye a sí mismo ni destruye al otro.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"El amor es sufrido, es benigno; el amor no tiene envidia... no busca lo suyo."</div><div class="bible-verse-ref">1 Corintios 13:4-5</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Cuándo el amor se convierte en dependencia destructiva? ¿Cómo discernir la diferencia entre amar de verdad y necesitar poseer?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>El profesor cae desde la respetabilidad hasta el ridículo. ¿Qué dice nuestra cultura sobre la dignidad humana? ¿Y la fe?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>¿Podemos condenar a Lola-Lola? ¿O somos todos, en alguna medida, responsables de las trampas que ponemos y en las que caemos?</span></li>
+  </ul>`,
+  conclusion:`<p>Hay una escena final donde el profesor Rath vuelve a su viejo escritorio de la escuela y muere. Regresa al único lugar donde fue él mismo. Ese gesto mínimo tiene la grandeza de una tragedia griega: uno muere donde vivió, aunque eso ya no exista.</p><p>Lo que nos llevamos esta noche es una pregunta sobre la identidad y el amor: ¿quién soy yo cuando lo que amaba me falla? La fe nos dice que hay una identidad que no depende de lo que otros nos dan ni de lo que nos quitan. Una identidad que se llama hijo, hija, amado.</p>`
+},
+{
+  id:"ninos_cielo", mes:2,
+  titulo:"Los Niños del Cielo",
+  original:"Bacheha-Ye aseman",
+  anio:1997, pais:"Irán",
+  director:"Majid Majidi",
+  guion:"Majid Majidi",
+  elenco:"Mohammad Amir Naji, Amir Farrokh Hashemian, Bahare Seddiqi",
+  fotografia:"Parviz Malekzade",
+  musica:"Keivan Jahanshahi",
+  duracion:"89 min",
+  genero:"Drama familiar",
+  tags:["iran","infancia","pobreza","esperanza"],
+  presentacion:`<p>Hay películas que nos devuelven la mirada de los niños —esa capacidad de ver el mundo con una urgencia y una ternura que los adultos solemos perder. Esta noche, <em>Los Niños del Cielo</em> del iraní Majid Majidi nos regala exactamente eso.</p><p>Ali, un niño de nueve años, pierde sin querer los zapatos de su hermana pequeña Zahra. Aterrorizado ante la posible reacción de su padre —un hombre bueno pero abrumado por la pobreza— decide con Zahra compartir sus únicos zapatos: ella va a la escuela por la mañana, corre a casa, se los da a él, y Ali llega tarde a su escuela cada día.</p><p>No hay crimen aquí, no hay malicia. Solo la dignidad de dos niños enfrentando la escasez con ingenio y amor fraternal. Una película que fue nominada al Oscar en 1998 y que tocó el corazón de millones en todo el mundo.</p>`,
+  curiosidades:[
+    "Fue la primera película iraní nominada al Oscar a Mejor Película Extranjera. Perdió ante La vida es bella de Roberto Benigni.",
+    "El niño protagonista, Amir Farrokh Hashemian, fue descubierto en una escuela pública de Teherán. No era actor.",
+    "Majidi rodó la secuencia de la carrera con cámaras ocultas para capturar la expresión genuina de los niños corriendo.",
+    "El título original en persa significa 'los niños del cielo' —referencia a la inocencia de los niños y a la promesa bíblica y coránica del reino.",
+    "La película fue prohibida brevemente en Irán por mostrar la pobreza demasiado crudamente. La presión internacional revirtió la decisión."
+  ],
+  biblia:`<p>Ali y Zahra no piden. No roban. No mienten (excepto una vez, por amor, para proteger a su padre). En su pequeño sacrificio cotidiano —correr, llegar tarde, callar— hay una ética del amor que las Escrituras reconocen perfectamente.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Dejad que los niños vengan a mí, y no se lo impidáis; porque de los que son como éstos es el reino de los cielos."</div><div class="bible-verse-ref">Mateo 19:14</div></div>
+  <p>Jesús no habla de niños como símbolo de inocencia ingenua. Habla de la actitud del niño: la dependencia confiada, la ausencia de arrogancia, la capacidad de recibir. Ali y Zahra tienen esa actitud con su padre, con su pobreza, con su vida.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"El que es fiel en lo muy poco, también en lo más es fiel."</div><div class="bible-verse-ref">Lucas 16:10</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Qué aprenden los adultos de los niños en esta película? ¿Cuándo fue la última vez que resolvimos un problema con ingenio y amor en lugar de con recursos?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La pobreza material de esta familia contrasta con su riqueza relacional. ¿Qué tesoros tenemos nosotros que no siempre sabemos ver?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>Ali quiere ganar la carrera para quedarse en el tercer lugar (unos zapatos nuevos como premio). ¿Cuáles son los "zapatos" que perseguimos hoy y que quizás Dios ya tiene preparados de otra manera?</span></li>
+  </ul>`,
+  conclusion:`<p>El final de la película —esos pies cansados de Ali, esos peces que se acercan a tocarlos en el estanque— es una imagen que permanece. No hay resolución fácil, no hay premio ganado de la forma esperada. Pero hay algo mejor: un padre que, sin saberlo, camina hacia la zapatería con el corazón dispuesto.</p><p>Nos vamos con la certeza de que la pobreza no define el alma. Que la dignidad no se compra. Y que dos niños compartiendo unos zapatos pueden enseñarnos más sobre la vida juntos que muchos discursos sobre la solidaridad.</p>`
+},
+{
+  id:"fahrenheit", mes:3,
+  titulo:"Fahrenheit 451",
+  original:"Fahrenheit 451",
+  anio:1966, pais:"Reino Unido",
+  director:"François Truffaut",
+  guion:"François Truffaut, Jean-Louis Richard",
+  elenco:"Oskar Werner, Julie Christie, Cyril Cusack",
+  fotografia:"Nicolas Roeg",
+  musica:"Bernard Herrmann",
+  duracion:"112 min",
+  genero:"Ciencia ficción / Drama",
+  tags:["truffaut","libros","libertad","distopía"],
+  presentacion:`<p>Estamos a punto de ver una película sobre el futuro que en muchos sentidos ya es nuestro presente. <em>Fahrenheit 451</em> —la temperatura a la que el papel arde— nos sitúa en una sociedad donde los bomberos no apagan incendios sino que los provocan: su misión es quemar libros.</p><p>Truffaut, el gran director de la Nouvelle Vague francesa, adaptó la novela de Ray Bradbury con una paleta de colores deliberadamente artificial: rojos encendidos, casas perfectas, una felicidad obligatoria y vacía. En ese mundo sin palabras escritas, sin memoria, sin historia, vive Montag, un bombero que empieza a dudar.</p><p>Esta noche reflexionaremos sobre algo que quizás damos por garantizado: el derecho de leer, de pensar, de conservar las palabras que forman quiénes somos.</p>`,
+  curiosidades:[
+    "Truffaut no hablaba inglés cuando filmó esta película en Inglaterra. Dirigió a sus actores a través de un intérprete.",
+    "Bernard Herrmann, el compositor de Psicosis y Vértigo de Hitchcock, creó una banda sonora basada en crescendos que imitan el fuego expandiéndose.",
+    "Julie Christie interpreta a dos personajes: la esposa conformista y la rebelde Clarisse. Una decisión de Truffaut para enfatizar que son las dos caras de la misma mujer que podría haber sido.",
+    "La novela de Bradbury fue escrita en una biblioteca pública de Los Ángeles en una máquina de escribir de alquiler: 10 centavos por media hora.",
+    "Los 'hombres libro' del final —personas que memorizan libros completos— existen en la historia real: en la antigua tradición oral de pueblos sin escritura."
+  ],
+  biblia:`<p>La quema de libros tiene una larga historia —y una larga historia de fracaso. El conocimiento, la palabra, la memoria: son más resistentes que el fuego. Las Escrituras lo saben desde el principio.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"La hierba se seca y la flor se marchita, pero la palabra de nuestro Dios permanece para siempre."</div><div class="bible-verse-ref">Isaías 40:8</div></div>
+  <p>En la película, los rebeldes deciden convertirse ellos mismos en libros —memorizarlos, encarnarlos. Es una imagen profundamente bíblica: la Palabra que se hace carne. La Torah que se escribe no en tablas sino en el corazón.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Pondré mi ley en su mente, y la escribiré en su corazón."</div><div class="bible-verse-ref">Jeremías 31:33</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Qué libros han formado quién eres? Si pudieras "ser" un libro —memorizarlo, encarnarlo— ¿cuál sería? ¿Por qué?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La sociedad de Fahrenheit 451 no prohíbe la felicidad —la impone. ¿Conocemos experiencias donde la comodidad se convierte en una forma de control?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La Biblia ha sido quemada muchas veces a lo largo de la historia. ¿Qué significa para nosotros que todavía exista? ¿Cómo la tratamos?</span></li>
+  </ul>`,
+  conclusion:`<p>Al final de <em>Fahrenheit 451</em>, Montag camina entre personas que han elegido ser libros, que llevan la memoria del mundo en su interior. Hay algo de iglesia en esa imagen: una comunidad que custodia la palabra cuando el mundo intenta borrarla.</p><p>Nos vamos con una pregunta: ¿qué palabras custodio yo? ¿Qué llevo en el corazón que nadie pueda quemarme? La respuesta más profunda que tenemos los creyentes es: la Palabra viva, que ni el fuego ni el tiempo pueden consumir.</p>`
+},
+{
+  id:"hombre_mujer", mes:4,
+  titulo:"Un Hombre y una Mujer",
+  original:"Un homme et une femme",
+  anio:1966, pais:"Francia",
+  director:"Claude Lelouch",
+  guion:"Claude Lelouch, Pierre Uytterhoeven",
+  elenco:"Anouk Aimée, Jean-Louis Trintignant",
+  fotografia:"Claude Lelouch",
+  musica:"Francis Lai",
+  duracion:"102 min",
+  genero:"Romance / Drama",
+  tags:["amor","viudez","lelouch","Aimée"],
+  presentacion:`<p>Hay canciones que son inseparables de una película. Esta noche escucharán —si no la recuerdan ya— la melodía más dulce y melancólica del cine francés. <em>Un hombre y una mujer</em> de Claude Lelouch ganó la Palma de Oro en Cannes y el Oscar a Mejor Película Extranjera en 1966. Y lo mereció con creces.</p><p>Anne y Jean-Louis se conocen en un internado donde ambos tienen hijos: ella, viuda de un especialista en efectos de cine; él, viudo de una esposa que no supo esperar su regreso. Dos heridas que se encuentran, que se reconocen, que dudan.</p><p>Lelouch filmó en blanco y negro y color —el blanco y negro para el pasado, el color para el presente vibrante. Es una película sobre si el amor puede volver cuando uno ya lo perdió una vez y tiene miedo de volverlo a perder.</p>`,
+  curiosidades:[
+    "Lelouch hizo la película con apenas 200.000 francos —un presupuesto ínfimo— porque ningún productor quiso financiarla. Él mismo la fotografió.",
+    "La música de Francis Lai ('Chabadabada') se convirtió en uno de los temas más tarareados de la historia del cine.",
+    "Anouk Aimée y Trintignant no ensayaron juntos: Lelouch quería que la incomodidad real entre dos desconocidos se tradujera en la pantalla.",
+    "La secuencia de las 24 Horas de Le Mans fue filmada de verdad durante la carrera de 1966. Trintignant conducía un auto de verdad a velocidades reales.",
+    "Claude Lelouch rodó gran parte de la película con una cámara en mano porque no tenía presupuesto para trípodes ni grúas."
+  ],
+  biblia:`<p>Esta es una historia sobre el miedo a volver a amar. Anne no puede entregarse del todo: la imagen de su marido muerto regresa en el momento de mayor intimidad. Es el duelo que no termina, la herida que protege del riesgo de una nueva herida.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"El amor perfecto echa fuera el temor; porque el temor lleva en sí castigo. De donde el que teme, no ha sido perfecto en el amor."</div><div class="bible-verse-ref">1 Juan 4:18</div></div>
+  <p>El amor que los discípulos conocen no es el amor romántico exclusivamente —es una actitud hacia la vida que permite el riesgo de la entrega. Anne tiene que aprender que amar de nuevo no traiciona al muerto: lo honra, porque eligió vivir.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"He venido para que tengan vida, y para que la tengan en abundancia."</div><div class="bible-verse-ref">Juan 10:10</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Conocemos a personas —quizás somos esa persona— que tienen miedo de volver a amar después de una pérdida? ¿Cómo les acompañamos?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La película presenta el duelo no como algo que "se supera" sino como algo que coexiste con la nueva vida. ¿Cómo integra nuestra fe el dolor y la esperanza?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>Jean-Louis persiste con ternura, sin presionar. ¿Qué tipo de amor es ese? ¿Lo reconocemos en alguien de nuestra vida?</span></li>
+  </ul>`,
+  conclusion:`<p>La última escena —el abrazo en la estación, el tren que llegó a tiempo— es uno de los finales más emocionantes del cine. No porque resuelva todo, sino porque es el comienzo de algo que podría ser real.</p><p>Nos vamos con la convicción de que el amor verdadero no borra el pasado: lo incluye. Que se puede honrar a quienes perdimos y al mismo tiempo elegir vivir con plenitud. La fe no pide que olvidemos: nos invita a que, amando lo que fue, abracemos lo que puede ser.</p>`
+},
+{
+  id:"juegos_prohib", mes:5,
+  titulo:"Los Juegos Prohibidos",
+  original:"Jeux interdits",
+  anio:1952, pais:"Francia",
+  director:"René Clément",
+  guion:"Jean Aurenche, Pierre Bost, René Clément",
+  elenco:"Brigitte Fossey, Georges Poujouly",
+  fotografia:"Robert Juillard",
+  musica:"Narciso Yepes (guitarra)",
+  duracion:"86 min",
+  genero:"Drama bélico / Drama infantil",
+  tags:["guerra","infancia","muerte","Clément"],
+  presentacion:`<p>Pocas películas han tenido el valor de mirar la guerra a través de los ojos de un niño sin idealizarlos. <em>Los Juegos Prohibidos</em> abre con una de las secuencias más demoledoras de la historia del cine: una columna de refugiados en 1940 bombardeada en una carretera. Una niña pequeña, Paulette, queda sola en el mundo.</p><p>La recoge Michel, un niño campesino. Juntos crearán un cementerio secreto para los animales que van muriendo alrededor: su forma de comprender, procesar y también domesticar la muerte que el mundo adulto ha soltado sin control.</p><p>René Clément ganó el Oscar a Mejor Película Extranjera. La partitura de guitarra de Narciso Yepes se convirtió en uno de los temas más reconocibles de todo el siglo. Pero lo que permanece, sobre todo, es la última imagen: un llamado en la multitud, y la respuesta de esa niña.</p>`,
+  curiosidades:[
+    "La guitarra del tema principal la tocó el español Narciso Yepes, que en ese momento era prácticamente desconocido. La película lo lanzó a la fama mundial.",
+    "La niña protagonista, Brigitte Fossey, tenía 5 años durante el rodaje. Era su debut en el cine y la actuación más natural imaginable: simplemente era.",
+    "El título original francés 'Jeux interdits' hace referencia tanto al cementerio secreto de los niños como a los juegos de guerra de los adultos —igualmente prohibidos por Dios.",
+    "La película fue censurada en algunos países porque mostraba a niños hurtando cruces de la iglesia. Clément defendió que era la única forma que los niños tenían de entender lo sagrado.",
+    "Roger Ebert la incluyó en su lista de las 10 mejores películas sobre la guerra que no muestran casi guerra."
+  ],
+  biblia:`<p>Paulette y Michel construyen un cementerio porque necesitan que la muerte tenga un lugar, un nombre, una cruz. Son teólogos naturales: saben que lo que muere merece ser llorado y señalado. Es una intuición profundamente bíblica.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Bienaventurados los que lloran, porque ellos recibirán consolación."</div><div class="bible-verse-ref">Mateo 5:4</div></div>
+  <p>Los adultos en la película están demasiado ocupados en sus rencillas —la disputa entre familias, la guerra— como para llorar con la niña. Son los niños los que crean el ritual de duelo. Hay algo profético en eso: los más pequeños enseñando a los grandes cómo honrar la vida.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"De la boca de los niños y de los que maman, fundaste la fortaleza."</div><div class="bible-verse-ref">Salmo 8:2</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Cómo acompañamos a los niños en el duelo? ¿Les damos espacio para preguntar, llorar, ritualizar la muerte? ¿O los "protegemos" alejándolos?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>El cementerio de animales de Paulette y Michel es una forma de liturgia inventada. ¿Qué liturgias tiene nuestra comunidad para acompañar el dolor?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La guerra de fondo es absurda y cruel. ¿Qué responsabilidad tienen los adultos —los gobiernos, las iglesias— ante los niños que quedan solos en medio de los conflictos humanos?</span></li>
+  </ul>`,
+  conclusion:`<p>Hay un último grito —"Michel, Michel!"— que es uno de los sonidos más desgarradores del cine. No se resuelve en abrazo. La guerra no tiene final feliz para los que quedaron solos en el camino.</p><p>Pero nos quedamos con la imagen de esas cruces plantadas con devoción en la tierra —cruces de todos los tamaños, robadas, puestas con amor. Es la teología más simple y más profunda: lo que vivió merece ser recordado. Lo que murió merece una cruz. Y eso, en el fondo, es lo que hace la fe con cada vida humana.</p>`
+},
+{
+  id:"strada", mes:6,
+  titulo:"La Strada",
+  original:"La Strada",
+  anio:1954, pais:"Italia",
+  director:"Federico Fellini",
+  guion:"Federico Fellini, Tullio Pinelli, Ennio Flaiano",
+  elenco:"Anthony Quinn, Giulietta Masina, Richard Basehart",
+  fotografia:"Otello Martelli",
+  musica:"Nino Rota",
+  duracion:"108 min",
+  genero:"Drama / Neorrealismo poético",
+  tags:["fellini","Masina","camino","redención"],
+  presentacion:`<p>Hay muy pocas actrices en la historia del cine que hayan creado un personaje con la profundidad y la ternura con que Giulietta Masina creó a Gelsomina. Esta noche vemos el Oscar a Mejor Película Extranjera de 1956. Vemos la obra más personal de Fellini. Vemos, quizás, una de las más grandes metáforas sobre la gracia que el cine ha dado jamás.</p><p>Gelsomina es vendida por su madre —literalmente, por un puñado de liras— a Zampanò, un hombre brutal y fuerte como un animal, que la usará como ayudante en su espectáculo callejero. El camino de Italia, la carretera sin fin, será el escenario de una historia donde una mujer sin nada —sin belleza convencional, sin dinero, sin poder— posee algo que nadie puede comprarle: la capacidad de amar.</p>`,
+  curiosidades:[
+    "Giulietta Masina era esposa de Fellini en la vida real. Él escribió el papel de Gelsomina pensando en ella, y no quiso a nadie más.",
+    "Anthony Quinn aprendió a tocar el trombón para la película. Sus actuaciones callejeras son reales.",
+    "La película fue rechazada inicialmente por el establishment del neorrealismo italiano, que la consideró demasiado poética y alejada de la realidad social. Hoy es patrimonio de la humanidad.",
+    "Nino Rota compuso el tema de La Strada —esa melodía de trompeta— en una sola noche. Es posiblemente su composición más reconocida.",
+    "El personaje de Il Matto (El Loco), interpretado por Richard Basehart, es una figura crística explícita: vive en las alturas, muere a manos de la brutalidad, y su mensaje resuena después de muerto."
+  ],
+  biblia:`<p>Gelsomina es, en la visión de Fellini, una figura crística: pura, incomprendida, despreciada por el poderoso, y sin embargo portadora de una gracia que el fuerte no puede comprender hasta que la ha perdido. Zampanò solo entiende lo que Gelsomina significaba cuando ya es tarde.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Lo necio del mundo escogió Dios, para avergonzar a los sabios; y lo débil del mundo escogió Dios, para avergonzar a lo fuerte."</div><div class="bible-verse-ref">1 Corintios 1:27</div></div>
+  <p>Il Matto le dice a Gelsomina algo hermoso: "En el mundo, todo sirve para algo. Hasta esta piedrilla sirve para algo. Y si no sirve para ti, sirve para otra cosa." Es una teología popular de la creación: todo tiene valor, todo tiene sentido, incluso lo que el mundo descarta.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"¿No se venden cinco pajarillos por dos cuartos? Con todo, ni uno de ellos está olvidado delante de Dios."</div><div class="bible-verse-ref">Lucas 12:6</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Conocemos a alguien como Gelsomina: que da amor sin recibir nada a cambio? ¿Cómo cuida nuestra comunidad a esas personas?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>Zampanò no sabe recibir amor. ¿Qué impide a las personas recibir amor, ternura, cuidado? ¿Cómo ayudamos a abrir esas corazas?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>El camino (la strada) como metáfora de la vida: siempre en movimiento, siempre pasajero. ¿Dónde encontramos la permanencia que necesitamos?</span></li>
+  </ul>`,
+  conclusion:`<p>La escena final —Zampanò, el hombre más fuerte que conocimos, sollozando en la orilla del mar ante algo que no puede nombrar ni recuperar— es uno de los momentos más poderosos del cine universal. La dureza se rompe. Demasiado tarde, pero se rompe.</p><p>Hay una esperanza en ese llanto: quien llora todavía puede sentir. Quien siente todavía puede cambiar. Y la fe nos dice que no hay lágrima que Dios no cuente, no hay arrepentimiento demasiado tardío para ser escuchado. El mar recibe ese llanto. Y quizás algo más también.</p>`
+},
+{
+  id:"ladron_bici", mes:7,
+  titulo:"Ladrón de Bicicletas",
+  original:"Ladri di biciclette",
+  anio:1948, pais:"Italia",
+  director:"Vittorio De Sica",
+  guion:"Cesare Zavattini",
+  elenco:"Lamberto Maggiorani, Enzo Staiola",
+  fotografia:"Carlo Montuori",
+  musica:"Alessandro Cicognini",
+  duracion:"89 min",
+  genero:"Drama / Neorrealismo",
+  tags:["neorrealismo","De Sica","Italia","pobreza"],
+  presentacion:`<p>En 1948 Italia era un país en ruinas. La guerra había pasado y dejado su rastro: hambre, desempleo, humillación. De Sica tomó una cámara y salió a la calle —literalmente a la calle— con actores no profesionales, con luz natural, con la Roma real.</p><p>Antonio Ricci consigue al fin un trabajo que necesita con desesperación: pegar carteles. Pero el trabajo requiere una bicicleta. La empeña, la recupera, y el primer día de trabajo se la roban. Lo que sigue es una jornada entera por la ciudad, con su pequeño hijo Bruno, buscando la bicicleta robada. Una jornada que es también un descenso al interior de un hombre que descubrirá los límites de su propia integridad.</p><p>Elegida por directores de todo el mundo como la mejor película de la historia en múltiples encuestas. Esta noche entendemos por qué.</p>`,
+  curiosidades:[
+    "Ningún actor de la película era profesional. Lamberto Maggiorani era obrero metalúrgico. De Sica lo encontró en la fábrica.",
+    "David O. Selznick ofreció a De Sica financiación con la condición de que el protagonista fuera Cary Grant. De Sica rechazó el dinero.",
+    "La película fue rodada completamente en exteriores, con luz natural. De Sica esperaba que el cielo estuviera nublado para la fotografía de la escena de la lluvia.",
+    "El niño Bruno, Enzo Staiola, fue encontrado en la calle mientras De Sica buscaba locaciones. Lo eligió por su cara.",
+    "Fue votada como la mejor película de todos los tiempos por la revista Sight & Sound en 1952 y 1958 —dos veces consecutivas."
+  ],
+  biblia:`<p>La escena más importante de la película no es el robo de la bicicleta: es cuando Antonio, desesperado, intenta robar una bicicleta ajena. En ese momento el ladrón y la víctima se intercambian. Y Bruno lo ve todo.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"No hurtarás."</div><div class="bible-verse-ref">Éxodo 20:15</div></div>
+  <p>El mandamiento es simple. La situación de Antonio no lo es. La película no justifica el robo —pero nos impide condenar fácilmente. Nos obliga a preguntarnos: ¿qué haríamos nosotros? ¿Cuándo el sistema que genera la desesperación es también responsable de los actos desesperados?</p>
+  <div class="bible-verse"><div class="bible-verse-text">"No me des pobreza ni riqueza; mantenme del pan necesario. No sea que me sacie, y te niegue, y diga: ¿Quién es el Señor? O que siendo pobre, hurte, y blasfeme el nombre de mi Dios."</div><div class="bible-verse-ref">Proverbios 30:8-9</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Es responsable la sociedad cuando una persona roba por necesidad? ¿Dónde termina la responsabilidad individual y empieza la colectiva?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>Bruno ve a su padre convertirse en lo que busca. ¿Qué ven nuestros hijos cuando estamos bajo presión? ¿Qué imagen de integridad les transmitimos?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La película termina sin resolución, sin bicicleta recuperada. ¿Cómo vivimos nosotros las situaciones sin solución? ¿Qué recursos tenemos —espirituales, comunitarios— que Antonio Ricci no tenía?</span></li>
+  </ul>`,
+  conclusion:`<p>La última imagen es la mano del padre tomada por la mano del hijo entre la multitud. No hay bicicleta, no hay trabajo, no hay solución. Pero hay esa mano pequeña que sigue eligiendo al padre que acaba de avergonzarse.</p><p>En esa mano hay algo de evangelio: el amor que no condiciona, que no retira la lealtad ante el fracaso. El hijo elige al padre. Y en ese gesto mínimo —esa mano tomada entre la multitud— hay más esperanza que en cualquier resolución cinematográfica.</p>`
+},
+{
+  id:"grande_illusion", mes:8,
+  titulo:"La Gran Ilusión",
+  original:"La Grande Illusion",
+  anio:1937, pais:"Francia",
+  director:"Jean Renoir",
+  guion:"Jean Renoir, Charles Spaak",
+  elenco:"Jean Gabin, Erich von Stroheim, Pierre Fresnay, Marcel Dalio",
+  fotografia:"Christian Matras",
+  musica:"Joseph Kosma",
+  duracion:"114 min",
+  genero:"Drama bélico / Drama humanista",
+  tags:["Renoir","guerra","humanismo","clásico"],
+  presentacion:`<p>Esta es una película sobre la guerra hecha por alguien que creía profundamente en los seres humanos. Jean Renoir, hijo del pintor Auguste Renoir, filmó en 1937 —dos años antes de que comenzara la Segunda Guerra Mundial— una historia sobre prisioneros de guerra franceses y sus captores alemanes. Y lo que encontró fue que la línea más profunda no pasa entre naciones enemigas, sino entre clases sociales.</p><p>El capitán von Rauffenstein y el teniente de Boïeldieu son aristócratas —uno alemán, uno francés— que se reconocen mutuamente a través de las líneas enemigas con más fraternidad que con sus propios compatriotas de clase trabajadora. La gran ilusión del título es justamente esa: la ilusión de que las guerras se hacen entre patrias, cuando en realidad se hacen entre mundos.</p><p>Hitler la prohibió. Goebbels la llamó "el enemigo cinematográfico número uno". Ese es su mejor certificado de calidad.</p>`,
+  curiosidades:[
+    "Franklin D. Roosevelt dijo públicamente que esta película debería ser vista por todos los ciudadanos democráticos del mundo.",
+    "La película fue confiscada por los nazis en Francia en 1940. La copia que vemos hoy es una reconstrucción de distintas versiones rescatadas de varios países.",
+    "Erich von Stroheim —que interpreta al comandante alemán— era en realidad austriaco. Creó el personaje con detalles de su propio pasado militar.",
+    "Renoir la filmó en parte como homenaje a un compañero de su regimiento en la Primera Guerra Mundial que lo salvó la vida y murió después.",
+    "Es la primera película no angloparlante nominada al Oscar a Mejor Película (no solo Extranjera). En 1938, eso era revolucionario."
+  ],
+  biblia:`<p>La gran pregunta de la película es: ¿qué hermandad es más fuerte —la de la nación, la de la clase o la de la humanidad? Renoir apuesta por la humanidad. Y en esa apuesta, hay algo profundamente evangélico.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Ya no hay judío ni griego; no hay esclavo ni libre; no hay varón ni mujer; porque todos vosotros sois uno en Cristo Jesús."</div><div class="bible-verse-ref">Gálatas 3:28</div></div>
+  <p>Los personajes de distintas naciones se reconocen unos a otros: von Rauffenstein cuida de Boïeldieu con una ternura que ninguna guerra puede borrar del todo. Y cuando Boïeldieu muere, el alemán llora a su enemigo como a un amigo. Es una imagen de lo que debería ser el mundo y rara vez es.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Habéis oído que fue dicho: Amarás a tu prójimo... Pero yo os digo: Amad a vuestros enemigos."</div><div class="bible-verse-ref">Mateo 5:43-44</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Con quiénes nos identificamos más en la película: con los que comparten nuestra clase, nuestra nación, nuestra fe? ¿Qué dice eso de nosotros?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La "gran ilusión" es que las fronteras dividen lo que en realidad es uno. ¿Qué fronteras invisibles dividimos nosotros en nuestra comunidad, nuestra familia, nuestra iglesia?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>¿Puede haber amistad genuina entre personas en lados opuestos de un conflicto? ¿Conocemos ejemplos —históricos o personales— de eso?</span></li>
+  </ul>`,
+  conclusion:`<p>La película termina con dos hombres caminando por la nieve hacia una frontera que quizás los salve —o quizás no. Renoir no sabía, mientras filmaba, que dos años después Europa volvería a la guerra. Su película es un acto de fe: fe en que los seres humanos, si se miran de verdad, se reconocen.</p><p>Esa fe es también la nuestra. No somos ingenuos sobre la maldad humana. Pero creemos que hay algo en cada persona —la imagen de Dios, el imago Dei— que ninguna guerra, ningún sistema, ningún odio puede borrar completamente. Ver eso en el otro es el principio de la paz.</p>`
+},
+{
+  id:"noche", mes:9,
+  titulo:"La Noche",
+  original:"La Notte",
+  anio:1961, pais:"Italia / Francia",
+  director:"Michelangelo Antonioni",
+  guion:"Michelangelo Antonioni, Ennio Flaiano, Tonino Guerra",
+  elenco:"Marcello Mastroianni, Jeanne Moreau, Monica Vitti",
+  fotografia:"Gianni Di Venanzo",
+  musica:"Giorgio Gaslini",
+  duracion:"122 min",
+  genero:"Drama existencial",
+  tags:["Antonioni","vacío","Moreau","Mastroianni"],
+  presentacion:`<p>Esta noche vemos una película difícil. No difícil por su trama —es simple— sino por lo que nos pide: quedarnos quietos con el vacío. Mirar la incomunicación entre dos personas que se amaron y ya no saben cómo hablarse.</p><p>Giovanni y Lidia son un matrimonio en crisis. Él, escritor exitoso que ya no escribe con verdad. Ella, mujer que percibe con claridad lo que se está perdiendo pero no puede decirlo. En el transcurso de un solo día —desde una tarde en la clínica donde agoniza un amigo, hasta el amanecer de una fiesta de la alta sociedad milanesa— asistimos al final de algo que una vez fue amor.</p><p>Antonioni filmó el silencio como nadie. Los planos largos, el silencio de los personajes, la arquitectura fría de Milán: todo habla de la soledad de dos personas que comparten una cama y ya no comparten nada más.</p>`,
+  curiosidades:[
+    "El libro que Giovanni presenta en la primera escena lo escribió Antonioni mismo para la película —no existe en la realidad.",
+    "Jeanne Moreau caminó sola por Milán durante 45 minutos para la escena del vagabundeo urbano. No había guión para esa secuencia: Antonioni la filmó siguiéndola sin que ella supiera exactamente cuándo terminaría.",
+    "Monica Vitti, que interpreta a la joven heredera, era la pareja real de Antonioni en ese momento. Hay una tensión real entre las dos mujeres del film que la cámara registra.",
+    "Ganó el Oso de Oro en el Festival de Berlín de 1961. Es parte de la trilogía de la incomunicación de Antonioni, junto a La Aventura y El Eclipse.",
+    "Marcello Mastroianni dijo que fue el rodaje más difícil de su carrera: 'Antonioni me pedía que no hiciera nada. Y no hacer nada es lo más difícil del mundo.'"
+  ],
+  biblia:`<p>La Noche es una película sobre el vacío en el corazón de la prosperidad. Giovanni y Lidia lo tienen todo —éxito, dinero, libertad— y sin embargo algo esencial falta. Es el retrato de lo que Eclesiastés llama "vanidad de vanidades".</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Vanidad de vanidades, todo es vanidad... Aumentando la ciencia, se aumenta el dolor."</div><div class="bible-verse-ref">Eclesiastés 1:2,18</div></div>
+  <p>Pero la película no cierra en la desesperación. La escena final —Lidia leyendo una carta de amor que Giovanni escribió años atrás y ya no recuerda— es también una puerta entreabierta. Él no recuerda haber amado así. Pero la carta existe. El amor fue real. ¿Puede recuperarse?</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Pero tengo contra ti, que has dejado tu primer amor. Recuerda, por tanto, de dónde has caído, y arrepiéntete."</div><div class="bible-verse-ref">Apocalipsis 2:4-5</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Cómo se pierde el amor en un matrimonio? ¿Hay momentos bisagra, o es un desgaste lento e imperceptible?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>Giovanni ya no recuerda haber amado profundamente. ¿Qué hacemos para no olvidar? ¿Qué "cartas de amor" guardamos —a las personas, a Dios, a nuestras vocaciones?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La película no ofrece solución. ¿Es honesto eso? ¿Qué puede ofrecer la fe en situaciones donde el amor se ha enfriado sin drama ni traición?</span></li>
+  </ul>`,
+  conclusion:`<p>El amanecer de La Notte llega gris, frío, sobre un jardín que ya no tiene flores. No hay redención fácil, no hay reconciliación súbita. Solo dos personas que quizás, con esa carta en la mano, tienen la posibilidad de empezar a hablar de verdad por primera vez en años.</p><p>La fe no promete que el amor sea fácil o eterno en su forma romántica. Sí promete que el amor —el ágape, el amor que decide, el amor que perdura— es posible aunque cueste. Y que las personas pueden comenzar de nuevo. Incluso al amanecer de una noche larga.</p>`
+},
+{
+  id:"400_golpes", mes:10,
+  titulo:"Los 400 Golpes",
+  original:"Les Quatre Cents Coups",
+  anio:1959, pais:"Francia",
+  director:"François Truffaut",
+  guion:"François Truffaut, Marcel Moussy",
+  elenco:"Jean-Pierre Léaud, Claire Maurier, Albert Rémy",
+  fotografia:"Henri Decaë",
+  musica:"Jean Constantin",
+  duracion:"99 min",
+  genero:"Drama / Nouvelle Vague",
+  tags:["truffaut","infancia","autobiográfico","NV"],
+  presentacion:`<p>François Truffaut tenía 27 años cuando filmó esta película. Fue su ópera prima, y también fue su autobiografía: Antoine Doinel —el niño protagonista— es él mismo, su propia infancia de mentiras domésticas, abandono afectivo, institutos correccionales.</p><p>Antoine tiene doce años. Sus padres no lo aman bien —no por maldad, sino por inmadurez, por sus propios problemas, por esa dificultad de algunos adultos para ver a los niños como personas completas. Antoine miente, roba, escapa. Y el sistema que debería protegerlo lo criminaliza.</p><p>La Nouvelle Vague francesa comenzó aquí, en cierto modo. Una cámara libre, una historia verdadera, un niño que corre hacia el mar porque el mar es lo único que nadie le puede quitar todavía. Este es el cine que cambia la forma de ver el mundo.</p>`,
+  curiosidades:[
+    "Jean-Pierre Léaud, que interpreta a Antoine, tenía 14 años. Truffaut lo encontró respondiendo un anuncio en el periódico. La entrevista filmada para el casting es la misma que aparece en la película.",
+    "La famosa escena de la confesión del psicólogo fue improvisada: Truffaut le pidió a Léaud que respondiera preguntas reales como si fuera Antoine. Las respuestas son del niño, no del personaje.",
+    "La película se proyectó en Cannes 1959, donde ganó el Premio a la Mejor Dirección. La audiencia lloró. La Nouvelle Vague ya era imparable.",
+    "El título '400 coups' es una expresión francesa que significa 'hacer muchas travesuras' o 'vivir al límite'. No tiene traducción literal.",
+    "Antoine Doinel aparecería en cuatro películas más de Truffaut, siempre interpretado por Léaud, hasta los años 70: una saga autobiográfica única en la historia del cine."
+  ],
+  biblia:`<p>Antoine no es un niño malo. Es un niño que no se siente visto. Sus mentiras son gritos de ayuda que nadie sabe descifrar. Y el sistema —la escuela, la correccional, la familia— responde a los gritos con más castigo.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Y vosotros, padres, no provoquéis a ira a vuestros hijos, sino criadlos en disciplina y amonestación del Señor."</div><div class="bible-verse-ref">Efesios 6:4</div></div>
+  <p>La película es un alegato contra una pedagogía del miedo y el castigo. Pero también es la historia de un niño que, a pesar de todo, busca belleza: en las películas, en el mar, en la velocidad del movimiento. Esa búsqueda no se puede apagar.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"¿Puede una madre olvidarse de su niño de pecho, y dejar de compadecerse del hijo de su vientre? Aunque ellas se olvidaran, yo nunca me olvidaré de ti."</div><div class="bible-verse-ref">Isaías 49:15</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>¿Cómo reconocemos a los niños y jóvenes que "no se sienten vistos" en nuestra comunidad? ¿Qué hacemos para verlos de verdad?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>Antoine roba un libro de Balzac porque lo admira. ¿Hay adultos en nuestra vida que nos "robaron el corazón" con su entusiasmo? ¿Estamos siendo ese adulto para algún joven?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>El final en la playa es una imagen de libertad pero también de incertidumbre. Antoine llega al mar —y el mar no tiene respuesta. ¿Qué respuestas tenemos nosotros para ofrecerle a los jóvenes que llegan al límite?</span></li>
+  </ul>`,
+  conclusion:`<p>La última imagen de la película es Antoine mirando a cámara —mirando a nosotros— con una expresión que no es de triunfo ni de derrota. Es una pregunta. ¿Y ahora qué?</p><p>Truffaut la filma así porque no tiene respuesta fácil. Pero nosotros sí tenemos algo: una comunidad, una fe, una promesa de que ningún niño es invisible para Dios aunque lo sea para el mundo. Y que quizás la tarea más importante que tenemos es ser esa presencia que le dice a un niño: yo te veo, yo te importo, no estás solo.</p>`
+},
+{
+  id:"chaplin_kid", mes:11,
+  titulo:"El Chico",
+  original:"The Kid",
+  anio:1921, pais:"Estados Unidos",
+  director:"Charles Chaplin",
+  guion:"Charles Chaplin",
+  elenco:"Charles Chaplin, Jackie Coogan",
+  fotografia:"Roland Totheroh",
+  musica:"Charles Chaplin (partitura 1971)",
+  duracion:"68 min",
+  genero:"Comedia / Drama / Cine mudo",
+  tags:["Chaplin","silente","infancia","emoción"],
+  presentacion:`<p>Cerramos nuestro ciclo anual con la película con la que casi todo comenzó. <em>El Chico</em> de Charles Chaplin tiene más de cien años. Y sigue siendo capaz de hacer llorar y reír en la misma escena a cualquier persona en cualquier lugar del mundo. Eso es lo que se llama arte universal.</p><p>Una joven madre soltera abandona a su bebé en un auto de un barrio rico. Una serie de accidentes lleva al bebé a manos del Vagabundo de Chaplin —el Charlot— que no sabe qué hacer con él, pero finalmente decide quedárselo y criarlo. Cinco años después, el Chico y el Vagabundo son una familia: peculiar, pobre, llena de trucos y ternura.</p><p>Chaplin escribió, dirigió, actuó y compuso la música. Tenía 31 años. Y entregó la película más emotiva de su carrera. Prepárense: hay una separación en esta historia que ha hecho llorar a generaciones enteras. Y hay una reunión que las ha consolado.</p>`,
+  curiosidades:[
+    "Jackie Coogan, el niño, tenía 5 años. Fue el primer gran niño estrella de Hollywood. Curiosamente, su historia adulta inspiró la 'Ley Coogan' que protege los ingresos de los niños actores.",
+    "Chaplin filmó la escena de la separación —cuando las autoridades se llevan al niño— sin decirle a Jackie que la escena terminaría. Las lágrimas del niño son reales.",
+    "La película fue un éxito sin precedentes: recaudó 2,5 millones de dólares en 1921, una fortuna incalculable en esa época.",
+    "Chaplin compuso la partitura musical en 1971, cuando tenía 82 años, para una retrée de la película. Es una de sus composiciones más delicadas.",
+    "Hay una secuencia de sueño —'el paraíso'— que Chaplin filmó con alas y nubes reales porque quería que el Vagabundo conociera, aunque fuera en sueños, la dignidad y la paz."
+  ],
+  biblia:`<p>El Vagabundo no tenía por qué quedarse con ese niño. Era un hombre solo, pobre, sin recursos. Pero algo lo detuvo —algo que la película llama amor, y que nosotros podemos llamar gracia.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"El que recibe a un niño como éste en mi nombre, a mí me recibe."</div><div class="bible-verse-ref">Mateo 18:5</div></div>
+  <p>La historia de adopción del Chico resuena de formas profundas en la experiencia cristiana: somos hijos adoptivos, acogidos por gracia, no por mérito. El padre que corre a nuestro encuentro en la parábola del hijo pródigo tiene algo de ese Vagabundo que abre la puerta y decide que ese niño es suyo.</p>
+  <div class="bible-verse"><div class="bible-verse-text">"Porque no recibisteis el espíritu de esclavitud para estar otra vez en temor, sino que habéis recibido el espíritu de adopción, por el cual clamamos: ¡Abba, Padre!"</div><div class="bible-verse-ref">Romanos 8:15</div></div>
+  <ul class="reflection-list">
+    <li><span class="reflection-bullet">◆</span><span>El Vagabundo da lo que tiene —que es poco— y eso es suficiente. ¿Cuántas veces dejamos de actuar porque creemos que lo que tenemos para dar es insuficiente?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>La escena del sueño del paraíso muestra un mundo donde los pobres tienen alas. ¿Qué imagen del reino de Dios nos da esa secuencia? ¿Cómo se relaciona con la promesa bíblica?</span></li>
+    <li><span class="reflection-bullet">◆</span><span>El ciclo completa: comenzamos en enero con un hombre que roba una identidad; terminamos en diciembre con un hombre que da una identidad. ¿Qué identidades hemos encontrado —o dado— a lo largo de este año de películas?</span></li>
+  </ul>`,
+  conclusion:`<p>La reunión final —el abrazo entre el Vagabundo y el Chico, con la madre presente por primera vez— es una de las imágenes más luminosas del cine mudo. Sin palabras. Solo abrazo. Solo reconocimiento. <em>Tú eres mío y yo soy tuyo.</em></p><p>Cerramos el ciclo anual de MICROCINE con esta imagen: un hombre pobre que eligió amar, un niño que fue encontrado, una madre que regresa. Es casi una parábola. O quizás es exactamente una parábola, como lo son todas las grandes historias: espejos donde reconocemos nuestra propia historia con Dios.</p><p>Gracias por este año de cine, de reflexión, de preguntas y de comunidad. El proyector se apaga. La pantalla queda en blanco. Y lo que llevamos lo llevamos en el corazón.</p>`
+}
+];
+
+let currentIdx = 0;
+
+// ── RENDER GRID ──
+function renderGrid() {
+  const grid = document.getElementById('filmGrid');
+  grid.innerHTML = FILMS.map((f, i) => `
+    <div class="film-card" onclick="openModal(${i})">
+      <div class="film-month">${MESES[f.mes]}</div>
+      <div class="film-poster-wrap">
+        <img src="imagenes/${f.id}.jpg" alt="${f.titulo}"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <object data="imagenes/${f.id}.svg" type="image/svg+xml" style="display:none;width:100%;height:100%;"></object>
+        <div class="film-overlay"></div>
+      </div>
+      <div class="film-info">
+        <div class="film-title">${f.titulo}</div>
+        <div class="film-meta-row">
+          <span class="film-year">${f.anio}</span>
+          <span>${f.pais}</span>
+        </div>
+        <div class="film-dir">dir. ${f.director}</div>
+        <div class="film-tags">${f.tags.map(t=>`<span class="film-tag">${t}</span>`).join('')}</div>
+        <div class="film-cta">Ver ficha completa</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── MODAL ──
+function openModal(idx) {
+  currentIdx = idx;
+  fillModal(FILMS[idx]);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  showTab('presentacion', document.querySelector('.tab-btn'));
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeIfOverlay(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function fillModal(f) {
+  document.getElementById('modalMonth').textContent = MESES[f.mes];
+  document.getElementById('modalTitle').textContent = f.titulo;
+  document.getElementById('modalOriginal').textContent = f.original !== f.titulo ? `(${f.original})` : '';
+  document.getElementById('modalYear').textContent = `${f.anio} · ${f.pais} · ${f.duracion}`;
+
+  // poster
+  const img = document.getElementById('modalImg');
+  const obj = document.getElementById('modalSvg');
+  img.src = `imagenes/${f.id}.jpg`;
+  img.style.display = 'block';
+  obj.style.display = 'none';
+  img.onerror = function() {
+    this.style.display = 'none';
+    obj.data = `imagenes/${f.id}.svg`;
+    obj.style.display = 'block';
+  };
+
+  // ficha
+  document.getElementById('fichaGrid').innerHTML = [
+    {l:'Director', v: f.director},
+    {l:'Guión', v: f.guion},
+    {l:'Elenco', v: f.elenco},
+    {l:'Fotografía', v: f.fotografia},
+    {l:'Música', v: f.musica},
+    {l:'Género', v: f.genero},
+    {l:'País / Año', v: `${f.pais} · ${f.anio}`},
+    {l:'Duración', v: f.duracion},
+  ].map(i=>`<div class="ficha-item"><div class="ficha-label">${i.l}</div><div class="ficha-value">${i.v}</div></div>`).join('');
+
+  document.getElementById('tabPresentacion').innerHTML = f.presentacion;
+  document.getElementById('tabCuriosidades').innerHTML = f.curiosidades.map((c,i)=>`
+    <div class="curiosity-item">
+      <div class="curiosity-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="curiosity-text">${c}</div>
+    </div>`).join('');
+  document.getElementById('tabBiblia').innerHTML = f.biblia;
+  document.getElementById('tabConclusion').innerHTML = `${f.conclusion}<div class="conclusion-box"><p>"El cine es un espejo en el que cada uno reconoce lo que lleva adentro." — <em>Federico Fellini</em></p></div>`;
+
+  // nav buttons
+  document.getElementById('btnPrev').disabled = idx => idx === 0;
+  document.getElementById('btnNext').disabled = idx => idx === FILMS.length - 1;
+  document.getElementById('btnPrev').disabled = currentIdx === 0;
+  document.getElementById('btnNext').disabled = currentIdx === FILMS.length - 1;
+}
+
+function navigateFilm(dir) {
+  const next = currentIdx + dir;
+  if (next >= 0 && next < FILMS.length) {
+    currentIdx = next;
+    fillModal(FILMS[currentIdx]);
+    document.getElementById('modal').scrollTop = 0;
+    showTab('presentacion', document.querySelector('.tab-btn'));
+  }
+}
+
+// ── TABS ──
+function showTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    const allBtns = document.querySelectorAll('.tab-btn');
+    const tabOrder = ['presentacion','curiosidades','biblia','conclusion'];
+    const idx = tabOrder.indexOf(tabId);
+    if (allBtns[idx]) allBtns[idx].classList.add('active');
+  }
+}
+
+// keyboard nav
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('modalOverlay').classList.contains('open')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowRight') navigateFilm(1);
+  if (e.key === 'ArrowLeft') navigateFilm(-1);
+});
+
+// init
+renderGrid();
+</script>
+</body>
+</html>
