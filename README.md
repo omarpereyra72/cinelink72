@@ -1,65 +1,57 @@
 # 🎬 CINELINK 72
 
-Portal de cine gratuito online — canales de YouTube, plataformas de streaming y ciclo MICROCINE.
+Portal de cine gratuito online — canales de YouTube, plataformas de streaming y archivo MICROCINE.
 
 ## Estructura del proyecto
 
 ```
 cinelink72/
 ├── index.html               ← App principal
-├── manifest.json            ← PWA manifest
-├── sw.js                    ← Service Worker
+├── manifest.json             ← PWA manifest
+├── sw.js                     ← Service Worker
 ├── README.md
 ├── icons/
-│   ├── icon-72.png … icon-512.png
-│   └── screenshot-wide.png
+│   └── icon-72.png … icon-512.png
 └── peliculas/
-    ├── microcine.html       ← Ciclo anual de 12 películas
-    └── imagenes/
-        ├── pleno_sol.svg
-        ├── angel_azul.svg
-        ├── ninos_cielo.svg
-        ├── fahrenheit.svg
-        ├── hombre_mujer.svg
-        ├── juegos_prohib.svg
-        ├── strada.svg
-        ├── ladron_bici.svg
-        ├── grande_illusion.svg
-        ├── noche.svg
-        ├── 400_golpes.svg
-        └── chaplin_kid.svg
-        (reemplazar .svg por .jpg con pósters reales)
+    ├── microcine.html        ← Archivo de 39 fichas de cine de culto
+    └── imagenes/              ← 39 pósters (.svg placeholder, reemplazables por .jpg)
 ```
 
 ## Deploy en Vercel
 
-1. Crear repo en GitHub y subir esta carpeta completa
-2. Ir a vercel.com → Import Project → seleccionar repo
-3. No requiere configuración — HTML estático puro
-4. Dominio: `https://cinelink72.vercel.app` (o el que elijas)
+1. Subir esta carpeta completa a un repositorio de GitHub
+2. vercel.com → Import Project → seleccionar repo
+3. Sin configuración adicional — HTML estático puro
+
+## MICROCINE — 39 películas
+
+**Ciclo anual (12 fichas, una por mes):** A Pleno Sol · El Ángel Azul · Los Niños del Cielo ·
+Fahrenheit 451 · Un Hombre y una Mujer · Los Juegos Prohibidos · La Strada · Ladrón de
+Bicicletas · La Gran Ilusión · La Noche · Los 400 Golpes · El Chico (Chaplin)
+
+**Archivo extendido (27 fichas adicionales, filtrables por director):** El Círculo Rojo ·
+On the Silver Globe · Alicia en las Ciudades · Opening Night · Qué Difícil es Ser un Dios ·
+Tan Lejos, Tan Cerca · El Año Pasado en Marienbad · El Eclipse · El Desprecio · El Enigma
+de Kaspar Hauser · París, Texas · Aguirre, la Ira de Dios · Ascensor para el Cadalso ·
+Viridiana · Desayuno en Tiffany's · El Ángel Exterminador · Charada · Psicosis · Los
+Pájaros · La Ventana Indiscreta · Rebeca · Ciudadano Kane · La Vida es Bella · Cinema
+Paradiso · Amarcord · 8½ · El Gatopardo
+
+Cada ficha incluye: datos técnicos completos, presentación para el auditorio, 5 curiosidades
+de producción, reflexión bíblica con versículos y preguntas de discusión, y conclusión de
+cierre — todo en redacción original.
 
 ## Pósters de películas
 
-Los archivos en `peliculas/imagenes/` son pósters SVG de diseño propio.
-Para reemplazarlos con los pósters reales, descargar imágenes JPG con los
-mismos nombres (ej: `pleno_sol.jpg`) y colocarlas en la misma carpeta.
-El HTML carga primero el .jpg y cae al .svg si no existe.
-
-## MICROCINE — Contenido por película
-
-Cada película incluye:
-- Ficha técnica completa (director, elenco, fotografía, música, etc.)
-- Texto de presentación para el auditorio (antes del film)
-- 5 curiosidades de filmación
-- Reflexión bíblica con versículos y preguntas de discusión
-- Conclusión / cierre para después del film
+Los archivos en `peliculas/imagenes/` son pósters SVG de diseño propio. Para reemplazarlos
+con pósters reales, subir imágenes JPG con el mismo nombre de archivo (ej: `pleno_sol.jpg`,
+`circulo_rojo.jpg`) en la misma carpeta. El HTML carga primero el .jpg y cae al .svg si no
+existe.
 
 ## Instalar como PWA (Android TV / Google TV)
 
 1. Deploy en Vercel → obtener URL pública
-2. Abrir navegador en el TV → navegar a la URL
-3. Menú → "Instalar app" o "Agregar a pantalla de inicio"
-4. CINELINK 72 se instala en modo pantalla completa
+2. Navegador del TV → menú → "Instalar app" / "Agregar a pantalla de inicio"
 
 ---
 CINELINK 72 · Portal de Cine Libre Online · EST. 2026
